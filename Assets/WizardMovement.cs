@@ -14,10 +14,27 @@ public class WizardMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float axisRawX = Input.GetAxisRaw("Horizontal");
-        float axisRawY = Input.GetAxisRaw("Vertical");
-   
-        gameObject.transform.position = new Vector2 (transform.position.x + (axisRawX * speed*Time.deltaTime), 
-            transform.position.y + (axisRawY * speed*Time.deltaTime));  
+        Vector2 dir = Vector2.zero;
+        if (Input.GetKey(KeyCode.A))
+        {
+            dir.x = -1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            dir.x = 1;
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            dir.y = 1;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            dir.y = -1;
+        }
+
+        dir.Normalize();
+
+        GetComponent<Rigidbody2D>().velocity = speed * dir;
     }
 }
