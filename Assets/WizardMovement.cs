@@ -17,7 +17,7 @@ public class WizardMovement : MonoBehaviour
         float axisRawX = Input.GetAxisRaw("Horizontal");
         float axisRawY = Input.GetAxisRaw("Vertical");
    
-        gameObject.transform.position = new Vector2 (transform.position.x + (axisRawX * speed), 
-            transform.position.y + (axisRawY * speed));  
+        gameObject.transform.position = new Vector2 (transform.position.x + (axisRawX * speed*Time.deltaTime), 
+            transform.position.y + (axisRawY * speed*Time.deltaTime));  
     }
 }
