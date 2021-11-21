@@ -1,37 +1,31 @@
 ﻿using System;
+using Fighting;
 using UnityEngine;
 
 namespace Robot
 {
     public class Attacker : MonoBehaviour
     {
-        /**
-         * attackDelay in seconds (or fractions thereof) 
-         */
+        /// <summary>
+        /// attackDelay in seconds (or fractions thereof) 
+        /// </summary>
         public float attackDelay;
-        /**
-         * attackRange in units (or fractions thereof) of which an attack will be conisdered
-         */
+        /// <summary>
+        /// attackRange in units (or fractions thereof) of which an attack will be conisdered
+        /// </summary>
         public float attackRange;
-        /**
-         * Attack is executed once in range and not conflicting with attackDelay
-         */
         public Attack attack;
+        public Damagable target;
+        
+        private float _lastAttackTime;
 
-        /**
-         * target will be attacked with attack when conditions fit
-         */
-        public IDamagable target;
-        
-        private float lastAttackTime; 
-        
         public void Update()
         {
             var dist = Vector3.Distance(this.transform.position, target.GetLocation());
-            if (!(dist <= attackRange) || !(Time.time > lastAttackTime + attackDelay)) return;
+            if (!(dist <= attackRange) || !(Time.time > _lastAttackTime + attackDelay)) return;
             
-            attack.ExecuteOn(target, this.gameObject);
-            lastAttackTime = Time.time;
+            attack.Perform(target, this.gameObject);
+            _lastAttackTime = Time.time;
         }
     }
 }

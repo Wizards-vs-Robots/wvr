@@ -1,11 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[System.Serializable]
-public abstract class Attack
+namespace Fighting
 {
-    public Damage damage; 
-    
-    public abstract void ExecuteOn(IDamagable target, GameObject by);
+    public abstract class Attack : MonoBehaviour
+    {
+        /// <summary>
+        /// damage is used for the attack
+        /// </summary>
+        public Damage damage;
+        
+        public abstract void Perform(Damagable on, GameObject by);
+    }
 }
