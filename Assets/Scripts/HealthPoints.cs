@@ -7,15 +7,18 @@ public class HealthPoints : MonoBehaviour
     public float currentHealthPoints;
     public float maxHealthPoints;
     public float shieldPoints;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public HealthBar healthBar;
 
-    // Update is called once per frame
+    public void TakeDamage(float damage)
+    {
+        currentHealthPoints -= damage;
+        healthBar.UpdateHealthBar();
+    }
+    
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.H)){
+            TakeDamage(10);
+        }
     }
 }

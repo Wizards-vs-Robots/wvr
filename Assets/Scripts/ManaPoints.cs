@@ -6,17 +6,29 @@ public class ManaPoints : MonoBehaviour
 {
     public float currentManaPoints;
     public float maxManaPoints;
+    public ManaBar manaBar;
 
-    // Start is called before the first frame update
-    void Start()
+    public void UseMana(float cost)
     {
-        
+        currentManaPoints -= cost;
+        manaBar.UpdateManaBar();
+    }
+
+    public void ManaRegen()
+    {
+        if (currentManaPoints < maxManaPoints)
+        {
+            currentManaPoints += (1 * Time.deltaTime);  
+            manaBar.UpdateManaBar();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+        if(Input.GetKeyDown(KeyCode.Space)){
+            UseMana(10);
+        }
+        ManaRegen();
     }
 }
