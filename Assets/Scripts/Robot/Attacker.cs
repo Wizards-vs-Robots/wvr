@@ -1,5 +1,6 @@
 ﻿using System;
 using Fighting;
+using Pathfinding;
 using UnityEngine;
 
 namespace Robot

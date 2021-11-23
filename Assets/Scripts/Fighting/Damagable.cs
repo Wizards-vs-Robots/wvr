@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class Damagable : MonoBehaviour
 {
+    private HealthPoints _health;
+
+    public void Start()
+    {
+        _health = this.GetComponent<HealthPoints>();
+    }
+    
     public Vector3 GetLocation()
     {
         return this.transform.position;
@@ -12,7 +19,7 @@ public class Damagable : MonoBehaviour
 
     public void ReceiveDamage(Damage damage)
     {
-        // TODO: manipulate health
+        _health.currentHealthPoints -= damage.amount;
     }
 
     public void Update()

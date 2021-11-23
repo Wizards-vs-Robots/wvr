@@ -6,6 +6,6 @@ using UnityEngine;
 [System.Serializable]
 public class Damage
 {
-    public double amount;
+    public float amount;
     public Element type = Element.Physical;
 }
