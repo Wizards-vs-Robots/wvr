@@ -22,8 +22,12 @@ namespace Robot
 
         public void Update()
         {
+            if (target == null)
+                return;
+                
             var dist = Vector3.Distance(this.transform.position, target.GetLocation());
-            if (!(dist <= attackRange) || !(Time.time > _lastAttackTime + attackDelay)) return;
+            if (!(dist <= attackRange) || !(Time.time > _lastAttackTime + attackDelay))
+                return;
             
             attack.Perform(target, this.gameObject);
             _lastAttackTime = Time.time;
