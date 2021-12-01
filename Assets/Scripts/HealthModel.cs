@@ -13,19 +13,22 @@ public class HealthModel : MonoBehaviour
     public float currentHealthPoints
     {
         get => _currentHealthPoints;
-        set
-        {
-            _currentHealthPoints = Math.Min(Math.Max(0, value), maxHealthPoints);
-            if (healthView != null) 
-                healthView.UpdateView(currentHealthPoints, maxHealthPoints);
-        }
+        set => _currentHealthPoints = Math.Min(Math.Max(0, value), maxHealthPoints);
+        
     }
 
     public void Start()
     {
-        if (healthView != null) {
-            healthView.UpdateView(currentHealthPoints, maxHealthPoints);
-        }
+        Paint();
     }
 
+    public void Update()
+    {
+        Paint();
+    }
+
+    private void Paint()
+    {
+        if (healthView != null) healthView.UpdateView(currentHealthPoints, maxHealthPoints);
+    }
 }

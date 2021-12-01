@@ -15,18 +15,12 @@ public class ManaModel : MonoBehaviour
     public float currentManaPoints
     {
         get => _currentManaPoints;
-        set
-        {
-            _currentManaPoints = Math.Min(Math.Max(0, value), maxManaPoints);
-            if (manaView != null)
-                manaView.UpdateView(_currentManaPoints, maxManaPoints);
-        }
+        set => _currentManaPoints = Math.Min(Math.Max(0, value), maxManaPoints);
     }
 
     public void Use(float cost)
     {
         currentManaPoints -= cost;
-        manaView.UpdateView(currentManaPoints, maxManaPoints);
     }
 
     private void Regenerate()
@@ -34,8 +28,12 @@ public class ManaModel : MonoBehaviour
         if (currentManaPoints < maxManaPoints)
         {
             currentManaPoints += regenerationRate * Time.deltaTime;  
-            manaView.UpdateView(currentManaPoints, maxManaPoints);
         }
+    }
+
+    private void Start()
+    {
+        Paint();
     }
 
     void Update()
@@ -56,7 +54,14 @@ public class ManaModel : MonoBehaviour
             
             Use(10);
         }
-
+        
         Regenerate();
+
+        Paint();
+    }
+
+    private void Paint()
+    {
+        if (manaView != null) manaView.UpdateView(_currentManaPoints, maxManaPoints);
     }
 }

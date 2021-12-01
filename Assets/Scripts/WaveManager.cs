@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 using Robot;
 
@@ -34,18 +35,22 @@ public class WaveManager : MonoBehaviour
             //If there are still some minions outside, the coroutine waits
             //before proceeding to the next wave until they are all dead.
             if (minions.Count > 0)
+            {
                 Debug.Log("There are still minions.");
                 yield return new WaitUntil(() => (minions.Count == 0));
-
+            }
+            
             //At this point, all minions are reported dead.
             //The next wave is strenghened, the cooldown is iniated and
             //the next minions are spawned.
             Debug.Log("Minions gone.");
+            
+            wave++;
             Strengthen();
             Debug.Log("Strengthened waves.");
             yield return new WaitForSeconds(cooldown);
 
-            Debug.Log("Waited Cooldown");
+            Debug.Log("Cooldown expired.");
             float[] pattern = GenerateSpawnPattern((int) scatterAmount, (int) scatterDuration);
             float elapsed = 0;
             foreach (float pointInTime in pattern) {
@@ -101,6 +106,8 @@ public class WaveManager : MonoBehaviour
         //Instantiate prefab at this position.
         GameObject entity = Instantiate(attackerPrefab, surrounding, Quaternion.identity);
         Attacker attacker = entity.GetComponent<Attacker>();
+        attacker.target = player.GetComponent<Damagable>();
+        entity.GetComponent<AIDestinationSetter>().target = player.transform;
         minions.Add(attacker);
     }
 
