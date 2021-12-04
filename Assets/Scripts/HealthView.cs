@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class HealthView : MonoBehaviour
 {
-    private static readonly Color32 MAX_HEALTH_COLOR = new Color(0x0, 0xFF, 0x0);
+    private static readonly Color32 MAX_HEALTH_COLOR = new Color(0x0,  0xFF, 0x0);
     private static readonly Color32 MID_HEALTH_COLOR = new Color(0xFF, 0xEB, 0x0);
-    private static readonly Color32 MIN_HEALTH_COLOR = new Color(0xFF, 0x0, 0x0);
+    private static readonly Color32 MIN_HEALTH_COLOR = new Color(0xFF, 0x0,  0x0);
     public Image background;
 
     public void UpdateView(float currentHealthPoints, float maxHealthPoints)

@@ -7,6 +7,9 @@ namespace Robot
 {
     public class Attacker : MonoBehaviour
     {
+        public int minWave;
+        public int maxWave;
+
         /// <summary>
         /// attackDelay in seconds (or fractions thereof) 
         /// </summary>
@@ -15,10 +18,17 @@ namespace Robot
         /// attackRange in units (or fractions thereof) of which an attack will be conisdered
         /// </summary>
         public float attackRange;
+
+        public float multiplier;
         public Attack attack;
         public Damagable target;
-        
+
         private float _lastAttackTime;
+
+        public float GetStrength()
+        {
+            return attack.damage.amount * multiplier;
+        }
 
         public void Update()
         {
