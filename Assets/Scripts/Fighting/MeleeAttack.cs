@@ -14,6 +14,7 @@ namespace Fighting
         
         public override void Perform(Damagable target, GameObject by)
         {
+            Debug.Log("Damage!");
             target.ReceiveDamage(damage);
             _animationStart = Time.time;
             _path.canMove = false;

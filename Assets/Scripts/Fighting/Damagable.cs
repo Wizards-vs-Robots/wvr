@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Damagable : MonoBehaviour
 {
-    private HealthPoints _health;
+    private HealthModel _health;
 
     public void Start()
     {
-        _health = this.GetComponent<HealthPoints>();
+        _health = this.GetComponent<HealthModel>();
     }
     
     public Vector3 GetLocation()
