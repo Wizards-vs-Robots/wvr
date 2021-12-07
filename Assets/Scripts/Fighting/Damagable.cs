@@ -29,7 +29,11 @@ public class Damagable : MonoBehaviour
                 WaveManager waveManager = waveManagerObject.GetComponent<WaveManager>();
                 waveManager.ReportDeath(gameObject);
             }
-            if (gameObject.CompareTag("Player")) SceneManager.LoadScene(0); //If player dies, goto main menu
+            if (gameObject.CompareTag("Player"))
+            {
+                SceneManager.LoadScene(0); //If player dies, goto main menu
+                return;
+            }
             Destroy(gameObject);
         }
     }
