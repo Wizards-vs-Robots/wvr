@@ -1,25 +1,29 @@
-﻿using System;
-using System.Security.Cryptography;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace Fighting
+public abstract class Spell : MonoBehaviour
 {
-    public class Spell:MonoBehaviour
+    public float spellSpeed;
+
+    public Damage damage;
+
+    public float manaCost;
+
+    public float cooldown;
+
+    public GameObject caster;
+
+    public Damagable target; 
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        public float spellSpeed;
-
-        public Damage damage;
-
-        public float manaCost;
-
-        public float cooldown;
-
-        public GameObject caster;//Should this be public? Idk...
-        private void OnTriggerEnter2D(Collider2D other)
+        if(other.gameObject.Equals(caster)) return;
+        Destroy(gameObject);
+        if (other.gameObject.TryGetComponent(out Damagable damageable))
         {
-            if(other.gameObject.Equals(caster)) return;
-            Destroy(gameObject);
-            if (other.gameObject.TryGetComponent(out Damagable damageable)) damageable.ReceiveDamage(damage);
+            if (target != null && !damageable.Equals(target)) return;
+            damageable.ReceiveDamage(damage);
         }
     }
 }

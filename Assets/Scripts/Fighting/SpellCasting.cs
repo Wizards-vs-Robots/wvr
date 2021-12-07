@@ -20,19 +20,21 @@ namespace Fighting
             if (_cooldown >= 0)
             {
                 _cooldown -= Time.deltaTime;
+                return;
             }
-            else
-            {
-                var dir = GetDirInput();
-                if (dir == Vector2.zero) return;
-                if (_mana.currentManaPoints < _currentSpell.manaCost) return;
-                var spellObject = Instantiate(currentSpellPrefab, gameObject.transform.position,Quaternion.identity);
-                _mana.Use(_currentSpell.manaCost);
-                spellObject.transform.Rotate(Vector3.forward, CalculateAngle(dir));
-                spellObject.GetComponent<Spell>().caster = gameObject;
-                spellObject.GetComponent<Rigidbody2D>().velocity = dir * _currentSpell.spellSpeed;
-                _cooldown = _currentSpell.cooldown;
-            }
+
+            var dir = GetDirInput();
+            if (dir == Vector2.zero) return;
+            
+            if (_mana.currentManaPoints < _currentSpell.manaCost) return;
+            
+            var spellObject = Instantiate(currentSpellPrefab, transform.GetComponent<Renderer>().bounds.center ,Quaternion.identity);
+            _mana.Use(_currentSpell.manaCost);
+            spellObject.transform.Rotate(Vector3.forward, SpellUtil.CalculateAngle(dir));
+            spellObject.GetComponent<Spell>().caster = gameObject;
+            spellObject.GetComponent<Rigidbody2D>().velocity = dir * _currentSpell.spellSpeed;
+            _cooldown = _currentSpell.cooldown;
+            
         }
 
         private static Vector2 GetDirInput()
@@ -57,28 +59,6 @@ namespace Fighting
             }
             dir.Normalize();
             return dir;
-        }
-
-        private static float CalculateAngle(Vector2 dir)
-        {
-            var angle = dir.y * 90;
-            if (!(dir.x < 0)) return angle;
-            if (dir.y < 0)
-            {
-                angle += 90 * dir.x;
-            }
-
-            if (dir.y > 0)
-            {
-                angle += -90 * dir.x;
-            }
-
-            if (dir.y == 0)
-            {
-                angle += 180;
-            }
-
-            return angle;
         }
     }
 }

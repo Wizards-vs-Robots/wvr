@@ -2,6 +2,7 @@
 using Fighting;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Robot
 {
@@ -19,7 +20,7 @@ namespace Robot
         /// </summary>
         public float attackRange;
 
-        public float multiplier;
+        public float strengthRating;
         public Attack attack;
         public Damagable target;
 
@@ -27,7 +28,7 @@ namespace Robot
 
         public float GetStrength()
         {
-            return attack.damage.amount * multiplier;
+            return strengthRating;
         }
 
         public void Update()

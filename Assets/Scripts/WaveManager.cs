@@ -130,7 +130,7 @@ public class WaveManager : MonoBehaviour
             if ((wave >= attacker.minWave || attacker.minWave < 0) &&
                 (wave <= attacker.maxWave || attacker.maxWave < 0)) {
                 options.Add(attacker);
-                Debug.Log(attacker.multiplier);
+                Debug.Log(attacker.strengthRating);
             }
         }
 

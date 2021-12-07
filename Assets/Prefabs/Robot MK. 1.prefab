@@ -138,9 +138,10 @@ GameObject:
   - component: {fileID: 8803106817760849432}
   - component: {fileID: 8803106817760849436}
   - component: {fileID: 8803106817760849438}
-  - component: {fileID: 8803106817760849439}
+  - component: {fileID: -7491253210047212339}
   - component: {fileID: 8803106817760849425}
   - component: {fileID: 653837943892081232}
+  - component: {fileID: 6886339522903732752}
   m_Layer: 24
   m_Name: Robot MK. 1
   m_TagString: Attacker
@@ -291,8 +292,8 @@ MonoBehaviour:
   maxWave: 1
   attackDelay: 1
   attackRange: 1
-  multiplier: 1
-  attack: {fileID: 8803106817760849439}
+  strengthRating: 10
+  attack: {fileID: -7491253210047212339}
   target: {fileID: 0}
 --- !u!114 &8803106817760849438
 MonoBehaviour:
@@ -306,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85244c9802ed2c841a09e16bd0eb13dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8803106817760849439
+--- !u!114 &-7491253210047212339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -321,7 +322,7 @@ MonoBehaviour:
   damage:
     amount: 10
     type: 0
-  animationDuration: 1
+  animationDuration: 0.5
 --- !u!114 &8803106817760849425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,3 +364,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.52140903, y: 0.8997547}
   m_EdgeRadius: 0
+--- !u!50 &6886339522903732752
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803106817760849446}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4

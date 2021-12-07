@@ -6,15 +6,18 @@ namespace Fighting
 {
     public class MeleeAttack : Attack
     {
-        [SerializeField]
-        public float animationDuration = 0.5f;
+        /// <summary>
+        /// damage is used for the attack
+        /// </summary>
+        public Damage damage;
         
+        public float animationDuration = 0.5f;
+
         private AIPath _path;
         private float _animationStart;
         
         public override void Perform(Damagable target, GameObject by)
         {
-            Debug.Log("Damage!");
             target.ReceiveDamage(damage);
             _animationStart = Time.time;
             _path.canMove = false;
