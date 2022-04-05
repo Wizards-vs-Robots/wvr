@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Score
+  - WaveManager
+  - Attacker
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -28,10 +32,10 @@ TagManager:
   - Layer 1
   - Layer 2
   - Layer 3
-  - 
-  - 
-  - 
-  - 
+  - Projectile
+  - Enemy
+  - Tree
+  - Player
   - 
   - 
   - 
