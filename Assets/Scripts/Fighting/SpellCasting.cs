@@ -40,20 +40,20 @@ namespace Fighting
         private static Vector2 GetDirInput()
         {
             var dir = UnityEngine.Vector2.zero;
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyBindings.player1_shoot_left))
             {
                 dir.x = -1;
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyBindings.player1_shoot_right))
             {
                 dir.x = 1;
             }
 
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyBindings.player1_shoot_up))
             {
                 dir.y = 1;
             }
-            else if (Input.GetKey(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyBindings.player1_shoot_down))
             {
                 dir.y = -1;
             }
