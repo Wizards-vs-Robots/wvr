@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KeyBindings : MonoBehaviour
 {
@@ -14,12 +15,4 @@ public class KeyBindings : MonoBehaviour
     public static KeyCode player1_shoot_right = KeyCode.RightArrow;
     public static KeyCode player1_shoot_down = KeyCode.DownArrow;
     public static KeyCode pause_button = KeyCode.P;
-
-    public void changeKeyCode(String keybinding, KeyCode keyCode)
-    {
-        
-    }
-    
-    
-    
 }
