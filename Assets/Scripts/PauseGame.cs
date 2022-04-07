@@ -21,10 +21,7 @@ public class PauseGame : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.P))
         {
-            Time.timeScale = 1F - Time.timeScale;
-            active = !active;
-            background.SetActive(active);
-            new WaitForSecondsRealtime(2);
+            ResumeGame();
         }
     }
     public void ReturnToMainMenu()
