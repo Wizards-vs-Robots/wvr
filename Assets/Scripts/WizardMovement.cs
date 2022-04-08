@@ -14,25 +14,25 @@ public class WizardMovement : MonoBehaviour
     void Update()
     {
         Vector2 dir = Vector2.zero;
-        if (Input.GetKey(KeyBindings.player1_move_left))
+        if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_left")))
         {
             dir.x = -1;
             GetComponent<SpriteRenderer>().flipX = false;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = WizardStandard;
         }
-        else if (Input.GetKey(KeyBindings.player1_move_right))
+        else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_right")))
         {
             dir.x = 1;
             GetComponent<SpriteRenderer>().flipX = true;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = WizardStandard;
         }
 
-        if (Input.GetKey(KeyBindings.player1_move_up))
+        if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_up")))
         {
             dir.y = 1;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = WizardWithAss;
         }
-        else if (Input.GetKey(KeyBindings.player1_move_down))
+        else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_down")))
         {
             dir.y = -1;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = WizardWithSmile;

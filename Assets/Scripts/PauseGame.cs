@@ -19,7 +19,7 @@ public class PauseGame : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyUp(KeyBindings.pause_button))
+        if (Input.GetKeyUp(KeyBindings.GetKeyBinding("pause_button")))
         {
             ResumeGame();
         }
