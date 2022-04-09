@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+ * Maintain more key bindings here, this gets modified via the key bindings menu UI
+ */
 public static class KeyBindings
 {
     private static Dictionary<String, KeyCode> bindings = new Dictionary<string, KeyCode>();
