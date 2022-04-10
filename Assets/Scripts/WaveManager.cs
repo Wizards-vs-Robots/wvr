@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
 using Robot;
+using UnityEngine.UIElements;
 
 public class WaveManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class WaveManager : MonoBehaviour
     public static float MAX_SPAWN_RADIUS = 7F;
     
     public GameObject[] prefabs;
+    public GameObject[] drop_prefabs;
     public List<Attacker> attackers;
     public GameObject player;
     //-----------------------------------------------
@@ -96,9 +98,17 @@ public class WaveManager : MonoBehaviour
             GameObject scoreField = GameObject.FindGameObjectsWithTag("Score")[0];
             ScoreModel view = scoreField.GetComponent<ScoreModel>();
             view.Increment(20);
-            
+            generateDrop(entity.transform.position);
             Destroy(entity);
             minions.Remove(entity);
+        }
+    }
+
+    private void generateDrop(Vector3 position)
+    { 
+        if (UnityEngine.Random.Range(0, 4) == 1) // 25% drop chance (maybe 20%, too lazy to look up)
+        {
+            Instantiate(drop_prefabs[UnityEngine.Random.Range(0,drop_prefabs.Length)], position, Quaternion.identity); //random available drop
         }
     }
 
