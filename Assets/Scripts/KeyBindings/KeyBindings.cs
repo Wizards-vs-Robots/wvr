@@ -27,8 +27,19 @@ public static class KeyBindings
         return bindings[key]; 
     }
     
-    public static void SetKeyBinding(string key, KeyCode binding) {
+    public static bool SetKeyBinding(string key, KeyCode binding)
+    {
+        KeyCode oldkey = bindings[key];
         bindings.Remove(key);
-        bindings.Add(key, binding);
+        if (!bindings.ContainsValue(binding))
+        {
+            bindings.Add(key, binding);
+            return true;
+        }
+        else
+        {
+            bindings.Add(key,oldkey);
+            return false;
+        }
     }
 }

@@ -21,8 +21,15 @@ public class ChangeKeyBindings : MonoBehaviour
     public void changeKeyCode()
     {
         KeyCode newcode = KeyListener.getLastPressed();
-        inputField.characterLimit = newcode.ToString().Length;
-        inputField.SetTextWithoutNotify(newcode.ToString());
-        KeyBindings.SetKeyBinding(key,newcode);
+        if (KeyBindings.SetKeyBinding(key, newcode))
+        {
+            inputField.characterLimit = newcode.ToString().Length;
+            inputField.SetTextWithoutNotify(newcode.ToString());
+        }
+        else
+        {
+            inputField.characterLimit = "Not Allowed".Length;
+            inputField.SetTextWithoutNotify("Not Allowed");
+        }
     }
 }
