@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,6 +27,7 @@ public class PauseGame : MonoBehaviour
     }
     public void ReturnToMainMenu()
     {
+        Highscores.SaveHighscore();
         SceneManager.LoadScene(sceneBuildIndex: 0);
     }
 
