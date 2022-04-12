@@ -27,7 +27,7 @@ namespace Fighting
             {
                 spellIndex = (spellIndex + 1) % learnedSpells.Count;
                 _currentSpell = learnedSpells[spellIndex].GetComponent<Spell>();
-                _currentSpellPrefab = learnedSpells[spellIndex];
+                _currentSpellPrefab = learnedSpells[spellIndex];            
             }
             
             var dir = GetDirInput();
@@ -39,13 +39,14 @@ namespace Fighting
                 return;
             }
             if (_mana.currentManaPoints < _currentSpell.manaCost) return;
-           
-            var spellObject = Instantiate(_currentSpellPrefab, transform.GetComponent<Renderer>().bounds.center ,Quaternion.identity);
-            _mana.Use(_currentSpell.manaCost);
-            spellObject.transform.Rotate(Vector3.forward, SpellUtil.CalculateAngle(dir));
-            spellObject.GetComponent<Rigidbody2D>().velocity = dir * _currentSpell.spellSpeed;
-            _cooldown = _currentSpell.cooldown;
+            _currentSpell.CastSpell(dir, transform.GetComponent<Renderer>().bounds.center); 
             
+            // var spellObject = Instantiate(_currentSpellPrefab, transform.GetComponent<Renderer>().bounds.center ,Quaternion.identity);
+            // spellObject.transform.Rotate(Vector3.forward, SpellUtil.CalculateAngle(dir));
+            // spellObject.GetComponent<Rigidbody2D>().velocity = dir * _currentSpell.spellSpeed;
+            
+            _cooldown = _currentSpell.cooldown;
+            _mana.Use(_currentSpell.manaCost);
         }
 
         private static Vector2 GetDirInput()

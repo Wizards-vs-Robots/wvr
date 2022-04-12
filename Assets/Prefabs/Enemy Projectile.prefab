@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4429066298516970490}
   - component: {fileID: 398468146579926040}
   - component: {fileID: -8975655907304248259}
-  - component: {fileID: -7158905065627168037}
   - component: {fileID: -2916226482473591508}
+  - component: {fileID: 7297002447148671324}
   m_Layer: 27
   m_Name: Enemy Projectile
   m_TagString: Projectile
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4212489105081550198}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7622651, w: -0.6472651}
   m_LocalPosition: {x: 16.9342, y: 0.1111, z: 0}
   m_LocalScale: {x: 0.038048804, y: 0.03808486, z: 1}
   m_Children: []
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -44025399
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b65538c4b641df24688dfd2cba4a7c4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -106,26 +106,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &-7158905065627168037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4212489105081550198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bb2e919d7946e7884a3b64594d1e7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellSpeed: 10
-  damage:
-    amount: 20
-    type: 0
-  manaCost: 10
-  cooldown: 0.2
-  caster: {fileID: 0}
-  target: {fileID: 0}
 --- !u!60 &-2916226482473591508
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -481,3 +461,21 @@ PolygonCollider2D:
       - {x: 0.29, y: 2.03}
       - {x: 0.65999997, y: 2.05}
       - {x: 0.68, y: 2.07}
+--- !u!114 &7297002447148671324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4212489105081550198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fedf833798e54a1db19979ea8dc0825e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 0
+  cooldown: 1
+  spellSpeed: 10
+  damage:
+    amount: 10
+    type: 0

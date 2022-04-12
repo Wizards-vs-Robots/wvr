@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Fighting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +19,12 @@ public class Damagable : MonoBehaviour
         return transform.position;
     }
 
-    public void ReceiveDamage(Damage damage)
+    /// <summary>
+    ///     
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <returns>true if the entity was destroyed by the damage, false otherwise</returns>
+    public bool ReceiveDamage(Damage damage)
     {
         _health.currentHealthPoints -= damage.amount;
         if (_health.currentHealthPoints == 0) //Shit dies here, maybe it should die in healthModel?
@@ -32,10 +38,14 @@ public class Damagable : MonoBehaviour
             if (gameObject.CompareTag("Player"))
             {
                 SceneManager.LoadScene(0); //If player dies, goto main menu
-                return;
             }
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
+            return true;
         }
+        return false;
     }
 
     public void Update()

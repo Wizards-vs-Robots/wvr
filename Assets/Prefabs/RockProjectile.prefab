@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4429066298516970490}
   - component: {fileID: 398468146579926040}
   - component: {fileID: -8975655907304248259}
-  - component: {fileID: -7158905065627168037}
   - component: {fileID: -2916226482473591508}
+  - component: {fileID: 5957148131350272343}
   m_Layer: 23
   m_Name: RockProjectile
   m_TagString: Projectile
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -44025399
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6747afe33c4a25a4093a2aee18f86e8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -97,7 +97,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -106,25 +106,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &-7158905065627168037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4212489105081550198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bb2e919d7946e7884a3b64594d1e7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellSpeed: 10
-  damage:
-    amount: 15
-    type: 0
-  manaCost: 5
-  cooldown: 0.1
-  target: {fileID: 0}
 --- !u!60 &-2916226482473591508
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -255,3 +236,21 @@ PolygonCollider2D:
       - {x: -0.78999996, y: -1.75}
       - {x: -0.71, y: -1.7099999}
       - {x: -0.55, y: -1.65}
+--- !u!114 &5957148131350272343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4212489105081550198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1fbb23055245a2bd04c8d02ffb6130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 5
+  cooldown: 0.1
+  spellSpeed: 20
+  damage:
+    amount: 30
+    type: 0
