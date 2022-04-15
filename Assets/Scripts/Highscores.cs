@@ -53,5 +53,10 @@ namespace DefaultNamespace
             var content = JsonConvert.SerializeObject(_highscores);
             File.WriteAllText(path, content);
         }
+
+        public static IEnumerable<Highscore> Get()
+        {
+            return _highscores;
+        }
     }
 }
