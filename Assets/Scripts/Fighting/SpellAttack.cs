@@ -17,7 +17,6 @@ namespace Fighting
             spellObject.transform.Rotate(Vector3.forward, SpellUtil.CalculateAngle(dir));
             var spell = spellObject.GetComponent<Spell>();
             spell.target = on;
-            spell.caster = gameObject;
             spellObject.GetComponent<Rigidbody2D>().velocity = dir * spell.spellSpeed;
         }
     }
