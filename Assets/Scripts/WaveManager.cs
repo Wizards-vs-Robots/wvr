@@ -170,11 +170,12 @@ public class WaveManager : MonoBehaviour
         List<Tuple<float, Attacker>> output = new List<Tuple<float, Attacker>>();
         while (quota > 0) {
             Attacker selected = options[pivot];
-            float attackerStrength = selected.GetStrength() * selected.GetStrengthScale();
+            float baseStrength = selected.GetStrength();
+            float scaledStrength = baseStrength * selected.GetStrengthScale();
 
-            if (quota >= attackerStrength || pivot == 0) {
+            if (quota >= scaledStrength || pivot == 0) {
                 float time = UnityEngine.Random.Range(1, upper) / TIME_PRECISION;
-                quota -= attackerStrength;
+                quota -= baseStrength;
                 output.Add(Tuple.Create(time, selected));
             } else {
                 pivot--;
