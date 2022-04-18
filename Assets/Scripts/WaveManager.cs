@@ -9,14 +9,14 @@ using UnityEngine.UIElements;
 public class WaveManager : MonoBehaviour
 {
     private static readonly float TIME_PRECISION = 10F;
-    private static readonly float BASE_COOLDOWN  = 1F; //5
-    private static readonly float BASE_DURATION  = 5F; //40
+    private static readonly float BASE_COOLDOWN  = 1F;
+    private static readonly float BASE_DURATION  = 5F;
     private static readonly float BASE_STRENGTH  = 100F;
     public static float MIN_SPAWN_RADIUS = 4F;
     public static float MAX_SPAWN_RADIUS = 7F;
     
-    public GameObject[] prefabs;
-    public GameObject[] drop_prefabs;
+    public GameObject[] attackerPrefabs;
+    public GameObject[] dropPrefabs;
     public List<Attacker> attackers;
     public GameObject player;
     //-----------------------------------------------
@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour
         //to elimite "runtime" overhead during the game and sort
         //them in ascending order regarding their strength.
         attackers = new List<Attacker>();
-        foreach (GameObject prefab in prefabs) {
+        foreach (GameObject prefab in attackerPrefabs) {
             attackers.Add(prefab.GetComponent<Attacker>());
         }
         attackers.Sort((x, y) => x.GetStrength().CompareTo(y.GetStrength()));
@@ -56,8 +56,8 @@ public class WaveManager : MonoBehaviour
             }
             
             //At this point, all minions are reported dead.
-            //The next wave is strenghened, the cooldown is iniated and
-            //the next minions are spawned.
+            //The next wave is strenghened, the cooldown is initiated
+            //and the next minions are spawned.
             Debug.Log("Minions gone.");
             
             wave++;
@@ -98,17 +98,19 @@ public class WaveManager : MonoBehaviour
             GameObject scoreField = GameObject.FindGameObjectsWithTag("Score")[0];
             ScoreModel view = scoreField.GetComponent<ScoreModel>();
             view.Increment(20);
-            generateDrop(entity.transform.position);
+            GenerateDrop(entity.transform.position);
             Destroy(entity);
             minions.Remove(entity);
         }
     }
 
-    private void generateDrop(Vector3 position)
+    private void GenerateDrop(Vector3 position)
     { 
-        if (UnityEngine.Random.Range(0, 4) == 1) // 25% drop chance (maybe 20%, too lazy to look up)
+        if (UnityEngine.Random.Range(0, 4) == 1) // 25% drop chance
         {
-            Instantiate(drop_prefabs[UnityEngine.Random.Range(0,drop_prefabs.Length)], position, Quaternion.identity); //random available drop
+            int index = UnityEngine.Random.Range(0, dropPrefabs.Length);
+            GameObject drop = dropPrefabs[index];
+            Instantiate(drop, position, Quaternion.identity);
         }
     }
 
@@ -132,7 +134,8 @@ public class WaveManager : MonoBehaviour
     }
 
     //Each attacker has a minimum and a maximum wave assigned to him.
-    //This function gives out a list of robots that can exist during the #wave.
+    //This function gives out a list of robots that can exist during
+    //the wave.
     List<Attacker> GetValidSpawningOptions()
     {
         List<Attacker> options = new List<Attacker>();
@@ -140,7 +143,6 @@ public class WaveManager : MonoBehaviour
             if ((wave >= attacker.minWave || attacker.minWave < 0) &&
                 (wave <= attacker.maxWave || attacker.maxWave < 0)) {
                 options.Add(attacker);
-                Debug.Log(attacker.strengthRating);
             }
         }
 
@@ -156,15 +158,16 @@ public class WaveManager : MonoBehaviour
         int pivot = options.Count - 1;
         int upper = (int) (duration * TIME_PRECISION);
         float quota = strength;
+        Debug.Log("Quota: " + quota);
 
         List<Tuple<float, Attacker>> output = new List<Tuple<float, Attacker>>();
         while (quota > 0) {
             Attacker selected = options[pivot];
-            float strength = selected.GetStrength();
+            float attackerStrength = selected.GetStrength() * selected.GetStrengthScale();
 
-            if (quota >= strength || pivot == 0) {
+            if (quota >= attackerStrength || pivot == 0) {
                 float time = UnityEngine.Random.Range(1, upper) / TIME_PRECISION;
-                quota -= strength;
+                quota -= attackerStrength;
                 output.Add(Tuple.Create(time, selected));
             } else {
                 pivot--;
