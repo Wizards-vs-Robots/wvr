@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class WizardMovement : MonoBehaviour
 {
+    public Sprite wizardWithAss;
+    public Sprite wizardWithSmile;
+    public Sprite wizardStandard;
+
+    public Rigidbody2D entity;
+    public Vector2 direction;
     public float speed;
-    public Sprite WizardWithAss;
-    public Sprite WizardWithSmile;
 
-    public Sprite WizardStandard;
+    void Start()
+    {
+        entity = GetComponent<Rigidbody2D>();
+    }
 
-    // Update is called once per frame
     void Update()
     {
         Vector2 dir = Vector2.zero;
@@ -18,28 +24,31 @@ public class WizardMovement : MonoBehaviour
         {
             dir.x = -1;
             GetComponent<SpriteRenderer>().flipX = false;
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = WizardStandard;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = wizardStandard;
         }
         else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_right")))
         {
             dir.x = 1;
             GetComponent<SpriteRenderer>().flipX = true;
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = WizardStandard;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = wizardStandard;
         }
 
         if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_up")))
         {
             dir.y = 1;
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = WizardWithAss;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = wizardWithAss;
         }
         else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_down")))
         {
             dir.y = -1;
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = WizardWithSmile;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = wizardWithSmile;
         }
 
         dir.Normalize();
+        entity.velocity = speed * dir;
 
-        GetComponent<Rigidbody2D>().velocity = speed * dir;
+        if (dir.magnitude != 0)
+            direction = dir;
     }
+
 }

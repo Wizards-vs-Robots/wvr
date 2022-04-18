@@ -21,6 +21,7 @@ public static class KeyBindings
         bindings.Add("player1_shoot_right", KeyCode.RightArrow);
         bindings.Add("player1_shoot_down", KeyCode.DownArrow);
         bindings.Add("pause_button", KeyCode.P);
+        bindings.Add("cooldown_action", KeyCode.Space);
     }
 
     public static KeyCode GetKeyBinding(string key) {
