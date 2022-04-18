@@ -95,9 +95,16 @@ public class WaveManager : MonoBehaviour
     public void ReportDeath(GameObject entity)
     {
         if (minions.Contains(entity)) {
+            // Retrieve score field
             GameObject scoreField = GameObject.FindGameObjectsWithTag("Score")[0];
             ScoreModel view = scoreField.GetComponent<ScoreModel>();
-            view.Increment(20);
+
+            // Retrieve attacker strength and increment score accordingly
+            Attacker attacker = entity.GetComponent<Attacker>();
+            view.Increment((int) attacker.GetStrength());
+            Debug.Log("Increment");
+
+            // Remove the entity and drop reward
             GenerateDrop(entity.transform.position);
             Destroy(entity);
             minions.Remove(entity);
