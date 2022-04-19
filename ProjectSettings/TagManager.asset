@@ -8,6 +8,8 @@ TagManager:
   - WaveManager
   - Attacker
   - Projectile
+  - CooldownGrowingInner
+  - CooldownFullInner
   layers:
   - Default
   - TransparentFX
