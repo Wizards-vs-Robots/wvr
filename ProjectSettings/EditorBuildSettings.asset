@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KeyBindingMenu.unity
     guid: 689681dd10c6a2e4dbc5de0bec3d7dc8
+  - enabled: 1
+    path: Assets/Scenes/HighscoreView.unity
+    guid: f9bbd29ea24f7ab459b0023490e65a17
   m_configObjects: {}

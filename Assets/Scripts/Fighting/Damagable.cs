@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,6 +32,7 @@ public class Damagable : MonoBehaviour
             }
             if (gameObject.CompareTag("Player"))
             {
+                Highscores.SaveHighscore();
                 SceneManager.LoadScene(0); //If player dies, goto main menu
                 return;
             }
