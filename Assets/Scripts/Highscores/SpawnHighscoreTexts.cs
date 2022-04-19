@@ -15,7 +15,7 @@ public class SpawnHighscoreTexts : MonoBehaviour
         foreach (var v in Highscores.Get())
         {
             var t = Instantiate(textPrefab, this.transform, false);
-            t.GetComponent<Text>().text = $"{v.score} at {v.time:yyyy-MM-dd HH:mm:ss}"; 
+            t.GetComponent<Text>().text = $"Score: {v.score}  Time: {v.time:yyyy-MM-dd HH:mm:ss}"; 
         }
     }
 }
