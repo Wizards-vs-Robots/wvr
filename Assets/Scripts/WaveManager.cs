@@ -41,7 +41,7 @@ public class WaveManager : MonoBehaviour
         cooldown = BASE_COOLDOWN;
         duration = BASE_DURATION;
         strength = BASE_STRENGTH;
-        StartCoroutine(Manage());
+        //StartCoroutine(Manage());
     }
 
     IEnumerator Manage()
@@ -51,34 +51,34 @@ public class WaveManager : MonoBehaviour
             //before proceeding to the next wave until they are all dead.
             if (minions.Count > 0)
             {
-                Debug.Log("There are still minions.");
+                // Debug.Log("There are still minions.");
                 yield return new WaitUntil(() => (minions.Count == 0));
             }
             
             //At this point, all minions are reported dead.
             //The next wave is strenghened, the cooldown is initiated
             //and the next minions are spawned.
-            Debug.Log("Minions gone.");
+            // Debug.Log("Minions gone.");
             
             wave++;
             Strengthen();
 
-            Debug.Log("Strengthened waves.");
+            // Debug.Log("Strengthened waves.");
             yield return new WaitForSeconds(cooldown);
 
-            Debug.Log("Cooldown expired.");
+            // Debug.Log("Cooldown expired.");
             List<Tuple<float, Attacker>> pattern = GenerateSpawnPattern();
             float elapsed = 0;
             foreach (Tuple<float, Attacker> pair in pattern) {
                 float duration = pair.Item1 - elapsed;
                 elapsed += duration;
 
-                Debug.Log("Elapsed: " + elapsed + "; P.I.T:" + pair.Item1 + " (" + duration + "s)");
+                // Debug.Log("Elapsed: " + elapsed + "; P.I.T:" + pair.Item1 + " (" + duration + "s)");
 
                 yield return new WaitForSeconds(duration);
-                Debug.Log("Waited...");
+                // Debug.Log("Waited...");
                 Spawn(pair.Item2, player.transform.position);
-                Debug.Log("Spawned...");
+                // Debug.Log("Spawned...");
             }
         }
     }

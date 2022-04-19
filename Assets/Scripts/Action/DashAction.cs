@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashAction : MonoBehaviour
+public class DashAction : MutualExclusiveAction
 {
-    public WizardMovement movement;
-    public Rigidbody2D body;
+    public WizardMovement control;
 
-    void Update()
+    public override void Execute()
     {
-        if (Input.GetKey(KeyBindings.GetKeyBinding("cooldown_action"))) {
-            Debug.Log(movement.direction * 100F);
-            body.AddForce(movement.direction * 100F);
-        }
+        control.dashing = true;
+        control.dash = control.direction * 100F;
     }
 }
