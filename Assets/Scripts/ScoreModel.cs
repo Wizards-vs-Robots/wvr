@@ -19,6 +19,8 @@ public class ScoreModel : MonoBehaviour
         scoreView.UpdateView(_score);
     }
 
+    public int GetScore() => _score;
+
     public void Start()
     {
         scoreView.UpdateView(_score);
