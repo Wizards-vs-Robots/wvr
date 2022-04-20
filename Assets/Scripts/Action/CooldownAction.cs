@@ -8,21 +8,24 @@ public abstract class CooldownAction : MonoBehaviour
     public bool waiting;
     public float cooldown;
     public float elapsed;
-    public Image background;
+    public Image cooldownBackground;
 
     public abstract void Execute();
 
     public void Start()
     {
-        if (background != null)
-            background.type = Image.Type.Filled;
+        if (cooldownBackground != null)
+        {
+            cooldownBackground.type = Image.Type.Filled;
+            cooldownBackground.fillMethod = Image.FillMethod.Vertical;
+        }
     }
 
     public void Update()
     {
         // Update cooldown background
-        if (background != null && waiting)
-            background.fillAmount = elapsed / cooldown;
+        if (cooldownBackground != null && waiting)
+            cooldownBackground.fillAmount = elapsed / cooldown;
 
         // Increment elapsed time counter
         if (waiting)
@@ -43,11 +46,8 @@ public abstract class CooldownAction : MonoBehaviour
         waiting = true;
 
         // Reset cooldown background
-        if (background != null)
-        {
-            // TODO: Does not get updated
-            background.fillAmount = 0.0F;
-        }
+        if (cooldownBackground != null)
+            cooldownBackground.fillAmount = 0.0F;
 
         // Wait for some time before unblocking cooldown action
         yield return new WaitForSeconds(cooldown);

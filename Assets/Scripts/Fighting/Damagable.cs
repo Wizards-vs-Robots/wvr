@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Damagable : MonoBehaviour
 {
+    public TakeDamageAction takeDamageAction;
     private HealthModel _health;
 
     public void Start()
@@ -21,8 +22,17 @@ public class Damagable : MonoBehaviour
 
     public void ReceiveDamage(Damage damage)
     {
+        if (takeDamageAction != null) 
+        {
+            // Still waiting before damage protection wears off
+            if (takeDamageAction.waiting)
+                return;
+            else
+                takeDamageAction.Trigger();
+        }
+
         _health.currentHealthPoints -= damage.amount;
-        if (_health.currentHealthPoints == 0) //Shit dies here, maybe it should die in healthModel?
+        if (_health.currentHealthPoints <= 0) //Shit dies here, maybe it should die in healthModel?
         {
             if (gameObject.CompareTag("Attacker"))
             {

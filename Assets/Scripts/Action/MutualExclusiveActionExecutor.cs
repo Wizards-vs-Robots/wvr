@@ -22,8 +22,7 @@ public class MutualExclusiveActionExecutor : MonoBehaviour
         action.Update();
 
         // Handle control
-        if (Input.GetKeyDown(KeyBindings.GetKeyBinding("cooldown_action"))) {
+        if (Input.GetKeyDown(KeyBindings.GetKeyBinding("cooldown_action")))
             action.Trigger();
-        }
     }
 }

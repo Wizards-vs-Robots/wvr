@@ -41,7 +41,7 @@ public class WaveManager : MonoBehaviour
         cooldown = BASE_COOLDOWN;
         duration = BASE_DURATION;
         strength = BASE_STRENGTH;
-        //StartCoroutine(Manage());
+        StartCoroutine(Manage());
     }
 
     IEnumerator Manage()
