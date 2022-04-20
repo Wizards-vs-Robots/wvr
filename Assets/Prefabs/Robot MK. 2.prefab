@@ -169,7 +169,8 @@ MonoBehaviour:
   maxWave: -1
   attackDelay: 3
   attackRange: 10
-  strengthRating: 30
+  strengthScale: 2.5
+  strength: 50
   attack: {fileID: -1220472670019125072}
   target: {fileID: 0}
 --- !u!114 &1180571252981529685
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8381dcdd4e42879abb433b684621e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpellPrefab: {fileID: 4212489105081550198, guid: bc80407eca812f04d805fa525b451f83,
+  currentSpellPrefab: {fileID: 4212489105081550198, guid: 1349edcf9bc00fe41a7cf2e9d4fcb705,
     type: 3}
 --- !u!114 &1180571252981529690
 MonoBehaviour:
@@ -226,7 +227,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0646745, y: 0.092161044}
+  m_Offset: {x: -0.03402257, y: 0.21638203}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -237,7 +238,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4049952, y: 0.77687323}
+  m_Size: {x: 0.8728404, y: 1.0253152}
   m_EdgeRadius: 0
 --- !u!50 &-5598565304195408088
 Rigidbody2D:
@@ -272,7 +273,7 @@ GameObject:
   - component: {fileID: 1180571253115073774}
   - component: {fileID: 1180571253115073769}
   - component: {fileID: 1180571253115073771}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: RobotSprite
   m_TagString: Attacker
   m_Icon: {fileID: 0}
@@ -357,7 +358,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.16154855, y: 0.33399212}
+  m_Offset: {x: -0.29867554, y: 0.5840473}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -368,7 +369,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5954505, y: 0.6057333}
+  m_Size: {x: 4.450919, y: 1.1058438}
   m_EdgeRadius: 0
 --- !u!114 &1180571253115073771
 MonoBehaviour:

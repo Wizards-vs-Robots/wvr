@@ -20,15 +20,29 @@ namespace Robot
         /// </summary>
         public float attackRange;
 
-        public float strengthRating;
+        // This scaling factor is applied to the attacker's strength
+        // before using it in the WaveManager's wave quota algorithm.
+        //
+        // It prevents the quota from being mostly used up by strong
+        // attackers, which initially spawn in large quantities and
+        // then only leave quota for weaker opponents. Hence, it
+        // allows waves to grow more gradually and spawning
+        // medium-strength robots.
+        public float strengthScale;
+        public float strength;
         public Attack attack;
         public Damagable target;
 
         private float _lastAttackTime;
 
+        public float GetStrengthScale()
+        {
+            return strengthScale;
+        }
+
         public float GetStrength()
         {
-            return strengthRating;
+            return strength;
         }
 
         public void Update()

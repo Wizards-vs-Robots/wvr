@@ -121,9 +121,10 @@ MonoBehaviour:
   spellSpeed: 10
   damage:
     amount: 20
-    type: 0
+    type: 1
   manaCost: 10
-  cooldown: 0.2
+  cooldown: 0.1
+  target: {fileID: 0}
 --- !u!60 &-2916226482473591508
 PolygonCollider2D:
   m_ObjectHideFlags: 0
