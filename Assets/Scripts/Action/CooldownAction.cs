@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 using UnityEngine.UI;
 
 public abstract class CooldownAction : MonoBehaviour
@@ -13,20 +12,28 @@ public abstract class CooldownAction : MonoBehaviour
 
     public abstract void Execute();
 
+    public void Start()
+    {
+        if (background != null)
+            background.type = Image.Type.Filled;
+    }
+
     public void Update()
     {
         // Update cooldown background
         if (background != null && waiting)
-        {
-            // TODO: Does not work
-            float ratio = elapsed / cooldown;
-            //background.DOFillAmount(ratio, 1);
-        }
+            background.fillAmount = elapsed / cooldown;
 
+        // Increment elapsed time counter
+        if (waiting)
+            elapsed += Time.deltaTime;
+    }
+
+    public void Trigger()
+    {
+        // Action is only triggered, when it is not already running
         if (!waiting)
             StartCoroutine(Act());
-        else
-            elapsed += Time.deltaTime;
     }
 
     IEnumerator Act()
