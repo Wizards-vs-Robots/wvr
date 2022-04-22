@@ -289,10 +289,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minWave: -1
-  maxWave: 1
+  maxWave: -1
   attackDelay: 1
   attackRange: 1
-  strengthRating: 10
+  strengthScale: 1
+  strength: 10
   attack: {fileID: -7491253210047212339}
   target: {fileID: 0}
 --- !u!114 &8803106817760849438

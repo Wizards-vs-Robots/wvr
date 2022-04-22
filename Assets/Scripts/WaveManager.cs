@@ -8,31 +8,45 @@ using UnityEngine.UIElements;
 
 public class WaveManager : MonoBehaviour
 {
+    //-- [Wave Configuration] ----------------------------
     private static readonly float TIME_PRECISION = 10F;
-    private static readonly float BASE_COOLDOWN  = 1F; //5
-    private static readonly float BASE_DURATION  = 5F; //40
+    private static readonly float BASE_COOLDOWN  = 1F;
+    private static readonly float BASE_DURATION  = 5F;
     private static readonly float BASE_STRENGTH  = 100F;
     public static float MIN_SPAWN_RADIUS = 4F;
     public static float MAX_SPAWN_RADIUS = 7F;
     
-    public GameObject[] prefabs;
-    public GameObject[] drop_prefabs;
+    public GameObject[] attackerPrefabs;
+    public GameObject[] dropPrefabs;
     public List<Attacker> attackers;
     public GameObject player;
-    //-----------------------------------------------
+
+    //-- [Wave Management] -------------------------------
     public int wave;
     public float cooldown;
     public float duration;
     public float strength;
     private List<GameObject> minions;
 
+    //-- [Visual Components] -----------------------------
+    public ScoreModel score;
+    public WaveIndicatorView waveIndicator;
+
     void Start()
     {
+        // Retrieving visual components for later updates
+        score = GameObject.FindGameObjectsWithTag("Score")[0]
+                          .GetComponent<ScoreModel>();
+
+        waveIndicator = GameObject.FindGameObjectsWithTag("WaveIndicator")[0]
+                                  .GetComponent<WaveIndicatorView>();        
+        waveIndicator.Start();
+
         //Getting "Attacker" component of game objects beforehand
         //to elimite "runtime" overhead during the game and sort
         //them in ascending order regarding their strength.
         attackers = new List<Attacker>();
-        foreach (GameObject prefab in prefabs) {
+        foreach (GameObject prefab in attackerPrefabs) {
             attackers.Add(prefab.GetComponent<Attacker>());
         }
         attackers.Sort((x, y) => x.GetStrength().CompareTo(y.GetStrength()));
@@ -51,34 +65,43 @@ public class WaveManager : MonoBehaviour
             //before proceeding to the next wave until they are all dead.
             if (minions.Count > 0)
             {
-                Debug.Log("There are still minions.");
+                // Debug.Log("There are still minions.");
                 yield return new WaitUntil(() => (minions.Count == 0));
             }
             
             //At this point, all minions are reported dead.
-            //The next wave is strenghened, the cooldown is iniated and
-            //the next minions are spawned.
-            Debug.Log("Minions gone.");
+            //The next wave is strengthened, the cooldown is initiated
+            //and the next minions are spawned.
+            // Debug.Log("Minions gone.");
             
+            // The 0th wave actually does nothing and is used to setup
+            // a wave using the same procedures instead of doing
+            // preliminary operations before jumping into the wave
+            // management loop. In other words, the 0th wave immediatly
+            // finishes and the wave with index 1 is the actual first wave.
+            if (wave > 0)
+                waveIndicator.UpdateView(wave); 
+
+            // Update wave stats
             wave++;
             Strengthen();
 
-            Debug.Log("Strengthened waves.");
+            // Debug.Log("Strengthened waves.");
             yield return new WaitForSeconds(cooldown);
 
-            Debug.Log("Cooldown expired.");
+            // Debug.Log("Cooldown expired.");
             List<Tuple<float, Attacker>> pattern = GenerateSpawnPattern();
             float elapsed = 0;
             foreach (Tuple<float, Attacker> pair in pattern) {
                 float duration = pair.Item1 - elapsed;
                 elapsed += duration;
 
-                Debug.Log("Elapsed: " + elapsed + "; P.I.T:" + pair.Item1 + " (" + duration + "s)");
+                // Debug.Log("Elapsed: " + elapsed + "; P.I.T:" + pair.Item1 + " (" + duration + "s)");
 
                 yield return new WaitForSeconds(duration);
-                Debug.Log("Waited...");
+                // Debug.Log("Waited...");
                 Spawn(pair.Item2, player.transform.position);
-                Debug.Log("Spawned...");
+                // Debug.Log("Spawned...");
             }
         }
     }
@@ -95,20 +118,28 @@ public class WaveManager : MonoBehaviour
     public void ReportDeath(GameObject entity)
     {
         if (minions.Contains(entity)) {
+            // Retrieve score field
             GameObject scoreField = GameObject.FindGameObjectsWithTag("Score")[0];
             ScoreModel view = scoreField.GetComponent<ScoreModel>();
-            view.Increment(20);
-            generateDrop(entity.transform.position);
+
+            // Retrieve attacker strength and increment score accordingly
+            Attacker attacker = entity.GetComponent<Attacker>();
+            view.Increment((int) attacker.GetStrength());
+
+            // Remove the entity and drop reward
+            GenerateDrop(entity.transform.position);
             Destroy(entity);
             minions.Remove(entity);
         }
     }
 
-    private void generateDrop(Vector3 position)
+    private void GenerateDrop(Vector3 position)
     { 
-        if (UnityEngine.Random.Range(0, 4) == 1) // 25% drop chance (maybe 20%, too lazy to look up)
+        if (UnityEngine.Random.Range(0, 4) == 1) // 25% drop chance
         {
-            Instantiate(drop_prefabs[UnityEngine.Random.Range(0,drop_prefabs.Length)], position, Quaternion.identity); //random available drop
+            int index = UnityEngine.Random.Range(0, dropPrefabs.Length);
+            GameObject drop = dropPrefabs[index];
+            Instantiate(drop, position, Quaternion.identity);
         }
     }
 
@@ -132,7 +163,8 @@ public class WaveManager : MonoBehaviour
     }
 
     //Each attacker has a minimum and a maximum wave assigned to him.
-    //This function gives out a list of robots that can exist during the #wave.
+    //This function gives out a list of robots that can exist during
+    //the wave.
     List<Attacker> GetValidSpawningOptions()
     {
         List<Attacker> options = new List<Attacker>();
@@ -140,7 +172,6 @@ public class WaveManager : MonoBehaviour
             if ((wave >= attacker.minWave || attacker.minWave < 0) &&
                 (wave <= attacker.maxWave || attacker.maxWave < 0)) {
                 options.Add(attacker);
-                Debug.Log(attacker.strengthRating);
             }
         }
 
@@ -156,15 +187,17 @@ public class WaveManager : MonoBehaviour
         int pivot = options.Count - 1;
         int upper = (int) (duration * TIME_PRECISION);
         float quota = strength;
+        //Debug.Log("Quota: " + quota);
 
         List<Tuple<float, Attacker>> output = new List<Tuple<float, Attacker>>();
         while (quota > 0) {
             Attacker selected = options[pivot];
-            float strength = selected.GetStrength();
+            float baseStrength = selected.GetStrength();
+            float scaledStrength = baseStrength * selected.GetStrengthScale();
 
-            if (quota >= strength || pivot == 0) {
+            if (quota >= scaledStrength || pivot == 0) {
                 float time = UnityEngine.Random.Range(1, upper) / TIME_PRECISION;
-                quota -= strength;
+                quota -= baseStrength;
                 output.Add(Tuple.Create(time, selected));
             } else {
                 pivot--;

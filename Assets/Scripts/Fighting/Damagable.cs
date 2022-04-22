@@ -7,11 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class Damagable : MonoBehaviour
 {
+    public DamageCooldownAction damageCooldownAction;
     private HealthModel _health;
 
     public void Start()
     {
         _health = GetComponent<HealthModel>();
+        if (damageCooldownAction != null)
+            damageCooldownAction.Start();
     }
     
     public Vector3 GetLocation()
@@ -26,8 +29,18 @@ public class Damagable : MonoBehaviour
     /// <returns>true if the entity was destroyed by the damage, false otherwise</returns>
     public bool ReceiveDamage(Damage damage)
     {
+        
+        if (damageCooldownAction != null) 
+        {
+            // Still waiting before damage protection wears off
+            if (damageCooldownAction.waiting)
+                return;
+            else
+                damageCooldownAction.Trigger();
+        }
+
         _health.currentHealthPoints -= damage.amount;
-        if (_health.currentHealthPoints == 0) //Shit dies here, maybe it should die in healthModel?
+        if (_health.currentHealthPoints <= 0) //Shit dies here, maybe it should die in healthModel?
         {
             if (gameObject.CompareTag("Attacker"))
             {
@@ -37,6 +50,7 @@ public class Damagable : MonoBehaviour
             }
             if (gameObject.CompareTag("Player"))
             {
+                Highscores.SaveHighscore();
                 SceneManager.LoadScene(0); //If player dies, goto main menu
             }
             else
@@ -46,10 +60,5 @@ public class Damagable : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    public void Update()
-    {
-        // TODO: perform animation (maybe)
     }
 }
