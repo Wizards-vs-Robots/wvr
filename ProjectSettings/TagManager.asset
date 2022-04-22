@@ -10,6 +10,7 @@ TagManager:
   - Projectile
   - CooldownGrowingInner
   - CooldownFullInner
+  - WaveIndicator
   layers:
   - Default
   - TransparentFX

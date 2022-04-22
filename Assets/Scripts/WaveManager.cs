@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 
 public class WaveManager : MonoBehaviour
 {
+    //-- [Wave Configuration] ----------------------------
     private static readonly float TIME_PRECISION = 10F;
     private static readonly float BASE_COOLDOWN  = 1F;
     private static readonly float BASE_DURATION  = 5F;
@@ -19,15 +20,28 @@ public class WaveManager : MonoBehaviour
     public GameObject[] dropPrefabs;
     public List<Attacker> attackers;
     public GameObject player;
-    //-----------------------------------------------
+
+    //-- [Wave Management] -------------------------------
     public int wave;
     public float cooldown;
     public float duration;
     public float strength;
     private List<GameObject> minions;
 
+    //-- [Visual Components] -----------------------------
+    public ScoreModel score;
+    public WaveIndicatorView waveIndicator;
+
     void Start()
     {
+        // Retrieving visual components for later updates
+        score = GameObject.FindGameObjectsWithTag("Score")[0]
+                          .GetComponent<ScoreModel>();
+
+        waveIndicator = GameObject.FindGameObjectsWithTag("WaveIndicator")[0]
+                                  .GetComponent<WaveIndicatorView>();        
+        waveIndicator.Start();
+
         //Getting "Attacker" component of game objects beforehand
         //to elimite "runtime" overhead during the game and sort
         //them in ascending order regarding their strength.
@@ -56,10 +70,19 @@ public class WaveManager : MonoBehaviour
             }
             
             //At this point, all minions are reported dead.
-            //The next wave is strenghened, the cooldown is initiated
+            //The next wave is strengthened, the cooldown is initiated
             //and the next minions are spawned.
             // Debug.Log("Minions gone.");
             
+            // The 0th wave actually does nothing and is used to setup
+            // a wave using the same procedures instead of doing
+            // preliminary operations before jumping into the wave
+            // management loop. In other words, the 0th wave immediatly
+            // finishes and the wave with index 1 is the actual first wave.
+            if (wave > 0)
+                waveIndicator.UpdateView(wave); 
+
+            // Update wave stats
             wave++;
             Strengthen();
 
@@ -102,7 +125,6 @@ public class WaveManager : MonoBehaviour
             // Retrieve attacker strength and increment score accordingly
             Attacker attacker = entity.GetComponent<Attacker>();
             view.Increment((int) attacker.GetStrength());
-            Debug.Log("Increment");
 
             // Remove the entity and drop reward
             GenerateDrop(entity.transform.position);
@@ -165,7 +187,7 @@ public class WaveManager : MonoBehaviour
         int pivot = options.Count - 1;
         int upper = (int) (duration * TIME_PRECISION);
         float quota = strength;
-        Debug.Log("Quota: " + quota);
+        //Debug.Log("Quota: " + quota);
 
         List<Tuple<float, Attacker>> output = new List<Tuple<float, Attacker>>();
         while (quota > 0) {
