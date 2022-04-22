@@ -12,18 +12,21 @@ public static class KeyBindings
 {
     private static Dictionary<String, KeyCode> bindings = new Dictionary<string, KeyCode>();
     static KeyBindings(){
-        if (!StoreKeyBindings.SetDefaultBindings())
+        if (!StoreKeyBindings.SetCustomBindings())
         {
-            bindings.Add("player1_move_up", KeyCode.W);
-            bindings.Add("player1_move_left", KeyCode.A);
-            bindings.Add("player1_move_right", KeyCode.D);
-            bindings.Add("player1_move_down", KeyCode.S);
-            bindings.Add("player1_shoot_up", KeyCode.UpArrow);
-            bindings.Add("player1_shoot_left", KeyCode.LeftArrow);
-            bindings.Add("player1_shoot_right", KeyCode.RightArrow);
-            bindings.Add("player1_shoot_down", KeyCode.DownArrow);
-            bindings.Add("pause_button", KeyCode.P);
-            bindings.Add("cooldown_action", KeyCode.Space);
+            if (!StoreKeyBindings.RestoreDefaults())
+            {
+                bindings.Add("player1_move_up", KeyCode.W);
+                bindings.Add("player1_move_left", KeyCode.A);
+                bindings.Add("player1_move_right", KeyCode.D);
+                bindings.Add("player1_move_down", KeyCode.S);
+                bindings.Add("player1_shoot_up", KeyCode.UpArrow);
+                bindings.Add("player1_shoot_left", KeyCode.LeftArrow);
+                bindings.Add("player1_shoot_right", KeyCode.RightArrow);
+                bindings.Add("player1_shoot_down", KeyCode.DownArrow);
+                bindings.Add("pause_button", KeyCode.P);
+                bindings.Add("cooldown_action", KeyCode.Space);
+            }
         }
     }
 

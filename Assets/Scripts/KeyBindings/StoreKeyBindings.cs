@@ -21,11 +21,10 @@ public static class StoreKeyBindings
         Dictionary<String, KeyCode> bindings = KeyBindings.Get();
 
         var content = JsonConvert.SerializeObject(bindings);
-        File.Delete(custom_path);
         File.WriteAllText(custom_path, content);
     }
 
-    public static bool SetDefaultBindings()
+    public static bool SetCustomBindings()
     {
         if (!File.Exists(custom_path))
         {
@@ -37,15 +36,16 @@ public static class StoreKeyBindings
         return true;
     }
 
-    public static void RestoreDefaults()
+    public static bool RestoreDefaults()
     {
         if (!File.Exists(default_path))
         {
-            return;
+            return false;
         }
         var content = File.ReadAllText(default_path);
         Dictionary<String, KeyCode> bindings =  JsonConvert.DeserializeObject<Dictionary<string, KeyCode>>(content);
         KeyBindings.Set(bindings);
+        return true;
     }
     
 }
