@@ -9,9 +9,7 @@ public abstract class Spell : MonoBehaviour
     public float spellSpeed;//Not every Spell has a speed
 
     public Damage damage;
-
     public float manaCost;
-
     public float cooldown;
 
     public Damagable target; 

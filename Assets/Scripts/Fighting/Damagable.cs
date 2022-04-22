@@ -7,12 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class Damagable : MonoBehaviour
 {
-    public TakeDamageAction takeDamageAction;
+    public DamageCooldownAction damageCooldownAction;
     private HealthModel _health;
 
     public void Start()
     {
         _health = GetComponent<HealthModel>();
+        if (damageCooldownAction != null)
+            damageCooldownAction.Start();
     }
     
     public Vector3 GetLocation()
@@ -22,13 +24,14 @@ public class Damagable : MonoBehaviour
 
     public void ReceiveDamage(Damage damage)
     {
-        if (takeDamageAction != null) 
+        
+        if (damageCooldownAction != null) 
         {
             // Still waiting before damage protection wears off
-            if (takeDamageAction.waiting)
+            if (damageCooldownAction.waiting)
                 return;
             else
-                takeDamageAction.Trigger();
+                damageCooldownAction.Trigger();
         }
 
         _health.currentHealthPoints -= damage.amount;
@@ -48,10 +51,5 @@ public class Damagable : MonoBehaviour
             }
             Destroy(gameObject);
         }
-    }
-
-    public void Update()
-    {
-        // TODO: perform animation (maybe)
     }
 }
