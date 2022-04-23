@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MutualExclusiveActionExecutor : MonoBehaviour
 {
     public MutualExclusiveAction action;
+    public int value;
 
     void Start()
     {
