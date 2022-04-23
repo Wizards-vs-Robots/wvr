@@ -15,7 +15,7 @@ public class WizardMovement : MonoBehaviour
     public float speed;
     //----------------------------------------
     public bool dashing;
-    public bool teleporting;
+    public bool stunned;
     //----------------------------------------
     public bool updated;
 
@@ -27,8 +27,18 @@ public class WizardMovement : MonoBehaviour
 
     void Update()
     {
-        if (!dashing && !teleporting)
+        if (!dashing)
             StartCoroutine(Move());
+    }
+
+    public Vector2 GetPosition()
+    {
+        return entity.transform.position;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        entity.transform.position = position;
     }
 
     public Vector2 GetNormalizedDirection()
@@ -78,6 +88,11 @@ public class WizardMovement : MonoBehaviour
 
             renderer.sprite = wizardWithSmile;
         }
+        
+        // The wizard has been allowed to change looking direction
+        // but must not move itself
+        if (stunned)
+            yield break;
 
         // Move entity in currentDirection
         SetVelocity(currentDirection * speed);
@@ -86,7 +101,7 @@ public class WizardMovement : MonoBehaviour
         // the previous direction shall not be overwritten
         if (!updated)
             yield break;
-            
+
         // Update previous direction if current direction
         // points somewhere and hence indicates directional
         // changes
