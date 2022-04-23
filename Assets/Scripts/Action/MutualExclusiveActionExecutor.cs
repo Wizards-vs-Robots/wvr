@@ -23,6 +23,9 @@ public class MutualExclusiveActionExecutor : MonoBehaviour
 
         // Handle control
         if (Input.GetKeyDown(KeyBindings.GetKeyBinding("cooldown_action")))
+        {
+            Debug.Log("Action is unlocked. " + action.IsUnlocked());
             action.Trigger();
+        }
     }
 }
