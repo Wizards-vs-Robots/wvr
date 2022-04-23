@@ -38,7 +38,7 @@ namespace Fighting
             // Nothing can be done, when the spell cooldown is
             // still active. Neither spells can be thrown, nor
             // can spells be swapped during this period of time
-            if (castSpellAction.waiting)
+            if (castSpellAction.active || castSpellAction.waiting)
                 return;
 
             // Change spell when pressing space
