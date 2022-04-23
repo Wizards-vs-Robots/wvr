@@ -34,7 +34,7 @@ public class Damagable : MonoBehaviour
         if (damageCooldownAction != null) 
         {
             // Still waiting before damage protection wears off
-            if (damageCooldownAction.waiting)
+            if (damageCooldownAction.active ||damageCooldownAction.waiting)
                 return false;
             else
                 damageCooldownAction.Trigger();

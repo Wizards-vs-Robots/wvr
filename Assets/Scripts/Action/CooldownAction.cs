@@ -5,14 +5,19 @@ using UnityEngine.UI;
 
 public abstract class CooldownAction : MonoBehaviour
 {
+    public bool active;
     public bool waiting;
+    public float duration;
     public float cooldown;
     public float elapsed;
     public Image cooldownBackground;
 
-    public abstract void Execute();
+    public abstract void BeforeAction();
+    public abstract void AfterAction();
+    public abstract void BeforeCooldown();
+    public abstract void AfterCooldown();
 
-    public void Start()
+    public virtual void Start()
     {
         if (cooldownBackground != null)
         {
@@ -35,24 +40,34 @@ public abstract class CooldownAction : MonoBehaviour
     public void Trigger()
     {
         // Action is only triggered, when it is not already running
-        if (!waiting)
+        if (!active && !waiting)
             StartCoroutine(Act());
     }
 
     IEnumerator Act()
     {
-        // Execute and initiate waiting state
-        Execute();
-        waiting = true;
+        // Action and reset cooldown indicator
+        active = true;
+        BeforeAction();
 
-        // Reset cooldown background
+        // Hide cooldown indicator
         if (cooldownBackground != null)
             cooldownBackground.fillAmount = 0.0F;
 
-        // Wait for some time before unblocking cooldown action
+        // Wait for some time
+        yield return new WaitForSeconds(duration);
+        AfterAction();
+        active = false;
+
+        // Cooldown Handling
+        waiting = true;
+        BeforeCooldown();
+
+        // Wait for some time
         yield return new WaitForSeconds(cooldown);
-        waiting = false;
         elapsed = 0F;
+        AfterCooldown();
+        waiting = false;
     }
 
 }

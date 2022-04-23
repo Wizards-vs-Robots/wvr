@@ -10,15 +10,14 @@ public class WizardMovement : MonoBehaviour
 
     public SpriteRenderer renderer;
     public Rigidbody2D entity;
-    
-    public Vector2 direction;
+    //----------------------------------------
+    public Vector2 previousDirection;
     public float speed;
-
-    public Vector2 dash;
+    //----------------------------------------
     public bool dashing;
-
+    public bool stunned;
+    //----------------------------------------
     public bool updated;
-    public bool blocked;
 
     void Start()
     {
@@ -28,81 +27,86 @@ public class WizardMovement : MonoBehaviour
 
     void Update()
     {
-        if (!blocked)
+        if (!dashing)
             StartCoroutine(Move());
+    }
+
+    public Vector2 GetPosition()
+    {
+        return entity.transform.position;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        entity.transform.position = position;
+    }
+
+    public Vector2 GetNormalizedDirection()
+    {
+        return previousDirection;
+    }
+
+    public void SetVelocity(Vector2 velocity)
+    {
+        entity.velocity = velocity;
     }
 
     IEnumerator Move()
     {
-        Vector2 direction = new Vector2(0, 0);
+        Vector2 currentDirection = new Vector2(0, 0);
         
-        if (dashing)
+        // Movement along X-Axis
+        if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_left")))
         {
-            direction = this.direction * 10F;
-            blocked = true;
+            currentDirection.x = -1;
             updated = true;
+
+            renderer.flipX = false;
+            renderer.sprite = wizardStandard;
         }
-        else
+        else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_right")))
         {
-            // Movement along X-Axis
-            if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_left")))
-            {
-                direction.x = -1;
-                updated = true;
+            currentDirection.x = 1;
+            updated = true;
 
-                renderer.flipX = false;
-                renderer.sprite = wizardStandard;
-            }
-            else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_right")))
-            {
-                direction.x = 1;
-                updated = true;
-
-                renderer.flipX = true;
-                renderer.sprite = wizardStandard;
-            }
-
-            // Movement along Y-Axis
-            if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_up")))
-            {
-                direction.y = 1;
-                updated = true;
-
-                renderer.sprite = wizardWithAss;
-            }
-            else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_down")))
-            {
-                direction.y = -1;
-                updated = true;
-
-                renderer.sprite = wizardWithSmile;
-            }
-
-            // Normalize movement vector
-            direction.Normalize();
-
-            // Store normalized direction vector
-            this.direction = direction;
-
-            // Bring entity up to speed
-            direction *= speed;
+            renderer.flipX = true;
+            renderer.sprite = wizardStandard;
         }
 
-        // Only if any update exists, the entity is moved.
+        // Movement along Y-Axis
+        if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_up")))
+        {
+            currentDirection.y = 1;
+            updated = true;
+
+            renderer.sprite = wizardWithAss;
+        }
+        else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_down")))
+        {
+            currentDirection.y = -1;
+            updated = true;
+
+            renderer.sprite = wizardWithSmile;
+        }
+        
+        // The wizard has been allowed to change looking direction
+        // but must not move itself
+        if (stunned)
+            yield break;
+
+        // Move entity in currentDirection
+        SetVelocity(currentDirection * speed);
+
+        // If no directional change has been suggested,
+        // the previous direction shall not be overwritten
         if (!updated)
-            yield return null;
+            yield break;
 
-        // Apply movement vector
-        entity.velocity = direction;
-
-        // Wait if dashing
-        if (dashing)
-        {
-            yield return new WaitForSeconds(1);
-            blocked = false;
-            dashing = false;
-        }
-
+        // Update previous direction if current direction
+        // points somewhere and hence indicates directional
+        // changes
+        currentDirection.Normalize();
+        previousDirection = currentDirection;
         updated = false;
     }
 
