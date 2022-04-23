@@ -51,9 +51,7 @@ namespace Fighting
             
             // Retrieve shooting direction
             var dir = GetShootingDirection();
-            if (dir == Vector2.zero)
-                return;
-            }
+            if (dir == Vector2.zero) return;
             if (manaModel.currentManaPoints < selectedSpell.manaCost) return;
             castSpellAction.Trigger();
             selectedSpell.CastSpell(dir, transform.GetComponent<Renderer>().bounds.center);

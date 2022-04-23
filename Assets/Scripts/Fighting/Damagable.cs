@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using Fighting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,7 +35,7 @@ public class Damagable : MonoBehaviour
         {
             // Still waiting before damage protection wears off
             if (damageCooldownAction.waiting)
-                return;
+                return false;
             else
                 damageCooldownAction.Trigger();
         }
