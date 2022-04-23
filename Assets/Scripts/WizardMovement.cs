@@ -81,19 +81,17 @@ public class WizardMovement : MonoBehaviour
 
         // Move entity in currentDirection
         SetVelocity(currentDirection * speed);
-        
+
         // If no directional change has been suggested,
         // the previous direction shall not be overwritten
         if (!updated)
-            yield return null;
-
+            yield break;
+            
         // Update previous direction if current direction
         // points somewhere and hence indicates directional
         // changes
         currentDirection.Normalize();
         previousDirection = currentDirection;
-
-        // Reset state
         updated = false;
     }
 
