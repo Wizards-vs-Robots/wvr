@@ -45,7 +45,7 @@ namespace Fighting
             // TODO: Move to central handling and give configurable key
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                int nextSpell = (spellIndex + 1) & learnedSpells.Count;
+                int nextSpell = (spellIndex + 1) % learnedSpells.Count;
                 SetSpell(nextSpell);
             }
             
