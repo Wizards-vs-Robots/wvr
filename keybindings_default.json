@@ -1,1 +1,13 @@
-{"player1_move_up":119,"player1_move_left":97,"player1_move_right":100,"player1_move_down":115,"player1_shoot_up":273,"player1_shoot_left":276,"player1_shoot_right":275,"player1_shoot_down":274,"pause_button":112,"cooldown_action":32}
+{
+  "player1_move_up": 119,
+  "player1_move_left": 97,
+  "player1_move_right": 100,
+  "player1_move_down": 115,
+  "player1_change_spell": 113,
+  "player1_shoot_up": 273,
+  "player1_shoot_left": 276,
+  "player1_shoot_right": 275,
+  "player1_shoot_down": 274,
+  "pause_button": 112,
+  "cooldown_action": 32
+}

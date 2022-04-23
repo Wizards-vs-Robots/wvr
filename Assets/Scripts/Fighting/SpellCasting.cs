@@ -41,9 +41,8 @@ namespace Fighting
             if (castSpellAction.waiting)
                 return;
 
-            // Change spell when pressing space
-            // TODO: Move to central handling and give configurable key
-            if (Input.GetKeyDown(KeyCode.Space))
+            // Change spell
+            if (Input.GetKeyDown(KeyBindings.GetKeyBinding("player1_change_spell")))
             {
                 int nextSpell = (spellIndex + 1) % learnedSpells.Count;
                 SetSpell(nextSpell);
