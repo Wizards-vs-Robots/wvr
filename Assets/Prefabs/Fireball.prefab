@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -44025399
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c66070f7e687d0f4793d486ba2997ab5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,13 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bb2e919d7946e7884a3b64594d1e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manaCost: 10
+  cooldown: 0.1
+  spellPrefab: {fileID: 4212489105081550198}
   spellSpeed: 10
   damage:
     amount: 20
     type: 1
-  manaCost: 10
-  cooldown: 0.1
-  target: {fileID: 0}
 --- !u!60 &-2916226482473591508
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -41,36 +41,20 @@ namespace Fighting
             if (castSpellAction.active || castSpellAction.waiting)
                 return;
 
-            // Change spell when pressing space
-            // TODO: Move to central handling and give configurable key
-            if (Input.GetKeyDown(KeyCode.Space))
+            // Change spell
+            if (Input.GetKeyDown(KeyBindings.GetKeyBinding("player1_change_spell")))
             {
-                int nextSpell = (spellIndex + 1) & learnedSpells.Count;
+                int nextSpell = (spellIndex + 1) % learnedSpells.Count;
                 SetSpell(nextSpell);
             }
             
             // Retrieve shooting direction
             var dir = GetShootingDirection();
-            if (dir == Vector2.zero)
-                return;
-            
-            // Check if wizard has enough mana to cast spell
-            if (manaModel.currentManaPoints < selectedSpell.manaCost)
-                return;
-           
-            // Update stats and start cooldown
+            if (dir == Vector2.zero) return;
+            if (manaModel.currentManaPoints < selectedSpell.manaCost) return;
             castSpellAction.Trigger();
+            selectedSpell.CastSpell(dir, transform.GetComponent<Renderer>().bounds.center);
             manaModel.Use(selectedSpell.manaCost);
-
-            // Spawn spell entity
-            var spellObject = Instantiate(selectedSpellPrefab,
-                                          transform.GetComponent<Renderer>().bounds.center,
-                                          Quaternion.identity);
-            spellObject.transform.Rotate(Vector3.forward,
-                                         SpellUtil.CalculateAngle(dir));
-
-            var body = spellObject.GetComponent<Rigidbody2D>();
-            body.velocity = dir * selectedSpell.spellSpeed;
         }
 
         private static Vector2 GetShootingDirection()
