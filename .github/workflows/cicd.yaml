@@ -1,4 +1,4 @@
-name: GameCI CI/CD
+name: Test, Build, Release
 
 on: 
   push:
