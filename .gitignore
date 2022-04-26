@@ -97,6 +97,8 @@ Desktop.ini
 .DS_Store
 
 highscores.json
+CodeCoverage/**
 
+UserSettings/EditorUserSettings.asset
 UserSettings/EditorUserSettings.asset
 keybindings_custom.json
