@@ -40,11 +40,8 @@ namespace DefaultNamespace
         
         public static void SaveHighscore()
         {
-            var hud = GameObject.Find("/HUD");
-            if (!hud) return;
-
-            var score = new Highscore(hud.GetComponent<ScoreModel>().GetScore());
-
+            var score = new Highscore(Statics.GetScoreModel().GetScore());
+            
             var highscore = _highscores.Count == 0 ? new Highscore(-1) : _highscores[0];
             if (score.score <= highscore.score) return;
 

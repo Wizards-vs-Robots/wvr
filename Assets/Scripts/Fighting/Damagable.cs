@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Fighting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,14 +23,19 @@ public class Damagable : MonoBehaviour
         return transform.position;
     }
 
-    public void ReceiveDamage(Damage damage)
+    /// <summary>
+    ///     
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <returns>true if the entity was destroyed by the damage, false otherwise</returns>
+    public bool ReceiveDamage(Damage damage)
     {
         
         if (damageCooldownAction != null) 
         {
             // Still waiting before damage protection wears off
-            if (damageCooldownAction.active || damageCooldownAction.waiting)
-                return;
+            if (damageCooldownAction.active ||damageCooldownAction.waiting)
+                return false;
             else
                 damageCooldownAction.Trigger();
         }
@@ -47,9 +53,13 @@ public class Damagable : MonoBehaviour
             {
                 Highscores.SaveHighscore();
                 SceneManager.LoadScene(0); //If player dies, goto main menu
-                return;
             }
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
+            return true;
         }
+        return false;
     }
 }

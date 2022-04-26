@@ -20,6 +20,7 @@ public static class KeyBindings
                 bindings.Add("player1_move_left", KeyCode.A);
                 bindings.Add("player1_move_right", KeyCode.D);
                 bindings.Add("player1_move_down", KeyCode.S);
+                bindings.Add("player1_change_spell", KeyCode.Q);
                 bindings.Add("player1_shoot_up", KeyCode.UpArrow);
                 bindings.Add("player1_shoot_left", KeyCode.LeftArrow);
                 bindings.Add("player1_shoot_right", KeyCode.RightArrow);

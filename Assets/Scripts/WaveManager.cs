@@ -28,20 +28,8 @@ public class WaveManager : MonoBehaviour
     public float strength;
     private List<GameObject> minions;
 
-    //-- [Visual Components] -----------------------------
-    public ScoreModel score;
-    public WaveIndicatorView waveIndicator;
-
     void Start()
     {
-        // Retrieving visual components for later updates
-        score = GameObject.FindGameObjectsWithTag("Score")[0]
-                          .GetComponent<ScoreModel>();
-
-        waveIndicator = GameObject.FindGameObjectsWithTag("WaveIndicator")[0]
-                                  .GetComponent<WaveIndicatorView>();        
-        waveIndicator.Start();
-
         //Getting "Attacker" component of game objects beforehand
         //to elimite "runtime" overhead during the game and sort
         //them in ascending order regarding their strength.
@@ -80,7 +68,7 @@ public class WaveManager : MonoBehaviour
             // management loop. In other words, the 0th wave immediatly
             // finishes and the wave with index 1 is the actual first wave.
             if (wave > 0)
-                waveIndicator.UpdateView(wave); 
+                Statics.GetWaveIndicator().UpdateView(wave); 
 
             // Update wave stats
             wave++;
@@ -118,13 +106,9 @@ public class WaveManager : MonoBehaviour
     public void ReportDeath(GameObject entity)
     {
         if (minions.Contains(entity)) {
-            // Retrieve score field
-            GameObject scoreField = GameObject.FindGameObjectsWithTag("Score")[0];
-            ScoreModel view = scoreField.GetComponent<ScoreModel>();
-
             // Retrieve attacker strength and increment score accordingly
             Attacker attacker = entity.GetComponent<Attacker>();
-            view.Increment((int) attacker.GetStrength());
+            Statics.GetScoreModel().Increment((int) attacker.GetStrength());
 
             // Remove the entity and drop reward
             GenerateDrop(entity.transform.position);
