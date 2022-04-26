@@ -1,5 +1,9 @@
-﻿public enum Element
+﻿namespace Fighting
 {
-    Physical,
-    Fire
+    public enum Element
+    {
+        Physical,
+        Fire,
+        Electric
+    }
 }

@@ -5,71 +5,75 @@ namespace Fighting
 {
     public class SpellCasting : MonoBehaviour
     {
+        public CastSpellAction castSpellAction;
         public List<GameObject> learnedSpells;
 
-        private ManaModel _mana;
-        private float _cooldown;
-        private Spell _currentSpell;
-        private GameObject _currentSpellPrefab;
-        public int spellIndex=0;
+        private ManaModel manaModel;
 
-        private void Start()
+        public int spellIndex;
+        private Spell selectedSpell;
+        private GameObject selectedSpellPrefab;
+
+        void Start()
         {
-            _mana = gameObject.GetComponent<ManaModel>();
-            _currentSpellPrefab = learnedSpells[spellIndex];
-            _currentSpell = learnedSpells[spellIndex].GetComponent<Spell>();
+            // Retrieve visual components
+            manaModel = gameObject.GetComponent<ManaModel>();
+            SetSpell(0);
+        }
+
+        private void SetSpell(int index)
+        {
+            spellIndex = index;
+
+            // Retrieve spell
+            selectedSpellPrefab = learnedSpells[spellIndex];
+            selectedSpell = learnedSpells[spellIndex].GetComponent<Spell>();
+            
+            // Instantiate spell casting action for cooldown effect
+            castSpellAction.cooldown = selectedSpell.cooldown;
         }
         
         void Update()
         {
-            //Change Spells, Probably wrong location to do so?
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                spellIndex = (spellIndex + 1) % learnedSpells.Count;
-                _currentSpell = learnedSpells[spellIndex].GetComponent<Spell>();
-                _currentSpellPrefab = learnedSpells[spellIndex];
-            }
-            
-            var dir = GetDirInput();
-            if (dir == Vector2.zero) return;
-            
-            if (_cooldown >= 0)
-            {
-                _cooldown -= Time.deltaTime;
+            // Nothing can be done, when the spell cooldown is
+            // still active. Neither spells can be thrown, nor
+            // can spells be swapped during this period of time
+            if (castSpellAction.active || castSpellAction.waiting)
                 return;
+
+            // Change spell
+            if (Input.GetKeyDown(KeyBindings.GetKeyBinding("player1_change_spell")))
+            {
+                int nextSpell = (spellIndex + 1) % learnedSpells.Count;
+                SetSpell(nextSpell);
             }
-            if (_mana.currentManaPoints < _currentSpell.manaCost) return;
-           
-            var spellObject = Instantiate(_currentSpellPrefab, transform.GetComponent<Renderer>().bounds.center ,Quaternion.identity);
-            _mana.Use(_currentSpell.manaCost);
-            spellObject.transform.Rotate(Vector3.forward, SpellUtil.CalculateAngle(dir));
-            spellObject.GetComponent<Rigidbody2D>().velocity = dir * _currentSpell.spellSpeed;
-            _cooldown = _currentSpell.cooldown;
             
+            // Retrieve shooting direction
+            var dir = GetShootingDirection();
+            if (dir == Vector2.zero) return;
+            if (manaModel.currentManaPoints < selectedSpell.manaCost) return;
+            castSpellAction.Trigger();
+            selectedSpell.CastSpell(dir, transform.GetComponent<Renderer>().bounds.center);
+            manaModel.Use(selectedSpell.manaCost);
         }
 
-        private static Vector2 GetDirInput()
+        private static Vector2 GetShootingDirection()
         {
             var dir = UnityEngine.Vector2.zero;
+            
+            // Left and right shooting
             if (Input.GetKey(KeyBindings.GetKeyBinding("player1_shoot_left")))
-            {
                 dir.x = -1;
-            }
             else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_shoot_right")))
-            {
                 dir.x = 1;
-            }
 
+            // Up and down shooting
             if (Input.GetKey(KeyBindings.GetKeyBinding("player1_shoot_up")))
-            {
                 dir.y = 1;
-            }
             else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_shoot_down")))
-            {
                 dir.y = -1;
-            }
-            dir.Normalize();
 
+            dir.Normalize();
             return dir;
         }
     }

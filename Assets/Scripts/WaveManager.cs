@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 
 public class WaveManager : MonoBehaviour
 {
+    //-- [Wave Configuration] ----------------------------
     private static readonly float TIME_PRECISION = 10F;
     private static readonly float BASE_COOLDOWN  = 1F;
     private static readonly float BASE_DURATION  = 5F;
@@ -19,7 +20,8 @@ public class WaveManager : MonoBehaviour
     public GameObject[] dropPrefabs;
     public List<Attacker> attackers;
     public GameObject player;
-    //-----------------------------------------------
+
+    //-- [Wave Management] -------------------------------
     public int wave;
     public float cooldown;
     public float duration;
@@ -51,34 +53,43 @@ public class WaveManager : MonoBehaviour
             //before proceeding to the next wave until they are all dead.
             if (minions.Count > 0)
             {
-                Debug.Log("There are still minions.");
+                // Debug.Log("There are still minions.");
                 yield return new WaitUntil(() => (minions.Count == 0));
             }
             
             //At this point, all minions are reported dead.
-            //The next wave is strenghened, the cooldown is initiated
+            //The next wave is strengthened, the cooldown is initiated
             //and the next minions are spawned.
-            Debug.Log("Minions gone.");
+            // Debug.Log("Minions gone.");
             
+            // The 0th wave actually does nothing and is used to setup
+            // a wave using the same procedures instead of doing
+            // preliminary operations before jumping into the wave
+            // management loop. In other words, the 0th wave immediatly
+            // finishes and the wave with index 1 is the actual first wave.
+            if (wave > 0)
+                Statics.GetWaveIndicator().UpdateView(wave); 
+
+            // Update wave stats
             wave++;
             Strengthen();
 
-            Debug.Log("Strengthened waves.");
+            // Debug.Log("Strengthened waves.");
             yield return new WaitForSeconds(cooldown);
 
-            Debug.Log("Cooldown expired.");
+            // Debug.Log("Cooldown expired.");
             List<Tuple<float, Attacker>> pattern = GenerateSpawnPattern();
             float elapsed = 0;
             foreach (Tuple<float, Attacker> pair in pattern) {
                 float duration = pair.Item1 - elapsed;
                 elapsed += duration;
 
-                Debug.Log("Elapsed: " + elapsed + "; P.I.T:" + pair.Item1 + " (" + duration + "s)");
+                // Debug.Log("Elapsed: " + elapsed + "; P.I.T:" + pair.Item1 + " (" + duration + "s)");
 
                 yield return new WaitForSeconds(duration);
-                Debug.Log("Waited...");
+                // Debug.Log("Waited...");
                 Spawn(pair.Item2, player.transform.position);
-                Debug.Log("Spawned...");
+                // Debug.Log("Spawned...");
             }
         }
     }
@@ -95,14 +106,9 @@ public class WaveManager : MonoBehaviour
     public void ReportDeath(GameObject entity)
     {
         if (minions.Contains(entity)) {
-            // Retrieve score field
-            GameObject scoreField = GameObject.FindGameObjectsWithTag("Score")[0];
-            ScoreModel view = scoreField.GetComponent<ScoreModel>();
-
             // Retrieve attacker strength and increment score accordingly
             Attacker attacker = entity.GetComponent<Attacker>();
-            view.Increment((int) attacker.GetStrength());
-            Debug.Log("Increment");
+            Statics.GetScoreModel().Increment((int) attacker.GetStrength());
 
             // Remove the entity and drop reward
             GenerateDrop(entity.transform.position);
@@ -165,7 +171,7 @@ public class WaveManager : MonoBehaviour
         int pivot = options.Count - 1;
         int upper = (int) (duration * TIME_PRECISION);
         float quota = strength;
-        Debug.Log("Quota: " + quota);
+        //Debug.Log("Quota: " + quota);
 
         List<Tuple<float, Attacker>> output = new List<Tuple<float, Attacker>>();
         while (quota > 0) {

@@ -25,6 +25,7 @@ public class ChangeKeyBindings : MonoBehaviour
         {
             inputField.characterLimit = newcode.ToString().Length;
             inputField.SetTextWithoutNotify(newcode.ToString());
+            StoreKeyBindings.SaveKeyBindings();
         }
         else
         {

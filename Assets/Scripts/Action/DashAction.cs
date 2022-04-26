@@ -2,16 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashAction : MonoBehaviour
+public class DashAction : MutualExclusiveAction
 {
-    public WizardMovement movement;
-    public Rigidbody2D body;
+    public WizardMovement control;
+    public float speed;
 
-    void Update()
+    public override void BeforeAction()
     {
-        if (Input.GetKey(KeyBindings.GetKeyBinding("cooldown_action"))) {
-            Debug.Log(movement.direction * 100F);
-            body.AddForce(movement.direction * 100F);
-        }
+        control.dashing = true;
+        control.SetVelocity(control.GetNormalizedDirection() * 10.0F);
+    }
+
+    public override void AfterAction()
+    {
+        control.dashing = false;
+    }  
+
+    public override void BeforeCooldown()
+    {
+    }
+
+    public override void AfterCooldown()
+    {
     }
 }
