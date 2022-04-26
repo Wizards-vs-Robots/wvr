@@ -1,15 +1,10 @@
-name: GameCI Template 🎮
-
-on: push
-
-
-name: Actions 😎
+name: GameCI CI/CD
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Build my project ✨
+    name: Test and Build Project 
     runs-on: ubuntu-latest
     steps:
       # Checkout
