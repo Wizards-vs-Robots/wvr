@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 public class Testtest
 {
     
-    [UnityTest]
+    [UnityTest, Ignore("not finished")]
     public IEnumerator TesttestWithEnumeratorPasses()
     {
         GameObject gameObject= new GameObject();
