@@ -10,6 +10,8 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+/artifacts
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
@@ -88,13 +90,14 @@ crashlytics-build.properties
 [Bb]in/
 [Oo]bj/
 _UpgradeReport_Files/
-[Pp]ackages/
 
 Thumbs.db
 Desktop.ini
 .DS_Store
 
 highscores.json
+CodeCoverage/**
 
+UserSettings/EditorUserSettings.asset
 UserSettings/EditorUserSettings.asset
 keybindings_custom.json
