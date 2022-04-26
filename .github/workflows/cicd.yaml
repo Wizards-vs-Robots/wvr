@@ -95,7 +95,8 @@ jobs:
           testMode: ${{ matrix.testMode }}
           checkName: ${{ matrix.testMode }} test results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ${{ steps.testRunner.outputs.artifactsPath }}/coverage-results -coverageOptions generateAdditionalMetrics
+          artifactsPath: artifacts
+          customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath artifacts/${{ matrix.testMode }}-coverage-results -coverageOptions generateAdditionalMetrics
 
       - uses: actions/upload-artifact@v2
         with:
