@@ -154,13 +154,13 @@ jobs:
     name: Build & Release
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        targetedPlatform: [StandaloneWindows64, StandaloneLinux64]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        
+      #BUILD
 
+      # Windows
       # caching stuff
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -181,20 +181,56 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-build-${{ matrix.targetedPlatform }}
+          key: Library-build-StandaloneWindows64
           restore-keys: |
             Library-build-
             Library-
       # build
       - uses: game-ci/unity-builder@v2
         with:
-          targetPlatform: ${{ matrix.targetedPlatform }}
+          targetPlatform: StandaloneWindows64
 
       # zip builds
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r build-${{ matrix.targetedPlatform }}.zip build/${{ matrix.targetedPlatform }}
+          args: zip -qq -r build-StandaloneWindows64.zip build/StandaloneWindows64
 
+      # Linux
+      # caching stuff
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-build-StandaloneLinux64
+          restore-keys: |
+            Library-build-
+            Library-
+      # build
+      - uses: game-ci/unity-builder@v2
+        with:
+          targetPlatform: StandaloneLinux64
+
+      # zip builds
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r build-StandaloneLinux64.zip build/StandaloneLinux64
+
+      # RELEASE
       # Create semver tag and changelog
       - name: Bump version and push tag
         id: tag_version
