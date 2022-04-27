@@ -135,14 +135,10 @@ jobs:
           restore-keys: |
             Library-build-
             Library-
-      - name: check status
-        run: git status
       # build
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneLinux64
-      - name: check status
-        run: git status
 
       # zip builds
       - uses: montudor/action-zip@v1
