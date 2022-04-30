@@ -10,6 +10,16 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(sceneBuildIndex: 1);
     }
+
+    public void PlayMultiplayerGame()
+    {
+
+    }
+
+    public void Quit()
+    {
+        Application.Quit(0);
+    }
     
     public void Options()
     {
