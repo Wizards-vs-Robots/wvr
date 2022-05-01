@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MutualExclusiveActionExecutor : MonoBehaviour
 {
     public MutualExclusiveAction action;
+    public string KeyBinding = "player1_cooldown_action";
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class MutualExclusiveActionExecutor : MonoBehaviour
         action.Update();
 
         // Handle control
-        if (Input.GetKeyDown(KeyBindings.GetKeyBinding("cooldown_action")) &&
+        if (Input.GetKeyDown(KeyBindings.GetKeyBinding(KeyBinding)) &&
             action.IsUnlocked())
         {
             action.Trigger();
