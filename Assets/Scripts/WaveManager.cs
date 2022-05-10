@@ -13,6 +13,7 @@ public class WaveManager : MonoBehaviour
     private static readonly float BASE_COOLDOWN  = 1F;
     private static readonly float BASE_DURATION  = 5F;
     private static readonly float BASE_STRENGTH  = 100F;
+    private static readonly float COOP_FACTOR = 2F; 
     public static float MIN_SPAWN_RADIUS = 4F;
     public static float MAX_SPAWN_RADIUS = 7F;
     
@@ -20,6 +21,7 @@ public class WaveManager : MonoBehaviour
     public GameObject[] dropPrefabs;
     public List<Attacker> attackers;
     public GameObject player;
+    public GameObject coopPlayer;
 
     //-- [Wave Management] -------------------------------
     public int wave;
@@ -96,11 +98,13 @@ public class WaveManager : MonoBehaviour
 
     void Strengthen()
     {
+        float factor = Statics.gameMode == Statics.GameMode.LOCAL_MULTIPLAYER ? COOP_FACTOR : 1;
+        
         //Different parameters grow using different growth functions.
         int x = wave - 1;
-        cooldown = (float) (BASE_COOLDOWN * Math.Exp(-0.005D * x));
-        duration = (float) (BASE_DURATION * Math.Exp(-0.02D * x));
-        strength = (float) (BASE_STRENGTH * Math.Exp(0.04D * x));
+        cooldown = (float) (1 / factor * BASE_COOLDOWN * Math.Exp(-0.005D * x));
+        duration = (float) (1 / factor * BASE_DURATION * Math.Exp(-0.02D * x));
+        strength = (float) (factor * BASE_STRENGTH * Math.Exp(0.04D * x));
     }
 
     public void ReportDeath(GameObject entity)
@@ -139,10 +143,18 @@ public class WaveManager : MonoBehaviour
 
         //Instantiate prefab, register attacker and let it target the player.
         GameObject parent = attacker.transform.gameObject;
-        parent.GetComponent<AIDestinationSetter>().target = player.transform;
-        attacker.target = player.GetComponent<Damagable>();
+        GameObject t;
+        
+        // Determine target (either player, or coop player by pseudo uniform distribution and game mode)
+        t = (Statics.gameMode == Statics.GameMode.LOCAL_MULTIPLAYER && UnityEngine.Random.Range(0, 2) == 1)
+            ? coopPlayer
+            : player;
+
+        parent.GetComponent<AIDestinationSetter>().target = t.transform;
+        attacker.target = t.GetComponent<Damagable>();
 
         GameObject spawned = Instantiate(parent, surrounding, Quaternion.identity);
+        if(t == coopPlayer) spawned.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 0, 221); // indicate target by color
         minions.Add(spawned);
     }
 
