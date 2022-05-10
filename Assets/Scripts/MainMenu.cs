@@ -13,7 +13,8 @@ public class MainMenu : MonoBehaviour
 
     public void PlayMultiplayerGame()
     {
-
+        Statics.gameMode = Statics.GameMode.LOCAL_MULTIPLAYER;
+        SceneManager.LoadScene(1);
     }
 
     public void Quit()
