@@ -140,21 +140,14 @@ public class WaveManager : MonoBehaviour
         Vector3 surrounding = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle), 0);
         surrounding *= range;
         surrounding += center;
-
-        //Instantiate prefab, register attacker and let it target the player.
-        GameObject parent = attacker.transform.gameObject;
-        GameObject t;
         
-        // Determine target (either player, or coop player by pseudo uniform distribution and game mode)
-        t = (Statics.gameMode == Statics.GameMode.LOCAL_MULTIPLAYER && UnityEngine.Random.Range(0, 2) == 1)
-            ? coopPlayer
-            : player;
-
-        parent.GetComponent<AIDestinationSetter>().target = t.transform;
-        attacker.target = t.GetComponent<Damagable>();
-
-        GameObject spawned = Instantiate(parent, surrounding, Quaternion.identity);
-        if(t == coopPlayer) spawned.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 0, 221); // indicate target by color
+        GameObject spawned = Instantiate(attacker.transform.gameObject, surrounding, Quaternion.identity);
+        
+        // Give Players to Aggro finder of instance;
+        var aggro = spawned.GetComponent<EnemyAggro>();
+        aggro.AddPossibleTarget(player);
+        if(Statics.gameMode == Statics.GameMode.LOCAL_MULTIPLAYER) aggro.AddPossibleTarget(coopPlayer);
+        
         minions.Add(spawned);
     }
 
