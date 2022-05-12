@@ -38,10 +38,10 @@ TagManager:
   - Projectile
   - Enemy
   - Tree
-  - Player
+  - PlayerHitBox
   - Enemy Projectile
   - ConeSpell
-  - 
+  - PlayerModel
   - 
   - 
   m_SortingLayers:
