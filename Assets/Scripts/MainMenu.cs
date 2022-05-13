@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     public void PlayGame()
     {
+        Statics.gameMode = Statics.GameMode.SINGLEPLAYER;
         SceneManager.LoadScene(sceneBuildIndex: 1);
     }
 
