@@ -19,10 +19,19 @@ public class WizardMovement : MonoBehaviour
     //----------------------------------------
     public bool updated;
 
+<<<<<<< HEAD
+=======
+    public string keyUp = "player1_move_up";
+    public string keyDown = "player1_move_down";
+    public string keyRight = "player1_move_right";
+    public string keyLeft = "player1_move_left";
+    
+>>>>>>> 7db6200 (Fix cooldown actions)
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
         entity = GetComponent<Rigidbody2D>();
+        previousDirection = new Vector2(-1, 0);
     }
 
     void Update()
