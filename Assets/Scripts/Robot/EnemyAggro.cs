@@ -9,16 +9,6 @@ namespace Robot
 {
     public class EnemyAggro : MonoBehaviour
     {
-        public void Start()
-        {
-            determiner.Add(AggroType.Proximity, () =>
-                targetList.OrderBy(t => (t.transform.position - this.transform.position).magnitude).FirstOrDefault());
-        
-            determiner.Add(AggroType.Random, () =>
-                targetList.OrderBy(o => Random.Range(0.0f, 1.0f)).FirstOrDefault());
-            calculatedOnce.Add(AggroType.Random);
-        }
-
         public AggroType aggroType = AggroType.Proximity;
     
         private readonly List<GameObject> targetList = new List<GameObject>();
@@ -32,6 +22,16 @@ namespace Robot
             {
                 targetList.Add(o);
             }
+        }
+        
+        public void Start()
+        {
+            determiner.Add(AggroType.Proximity, () =>
+                targetList.OrderBy(t => (t.transform.position - this.transform.position).magnitude).FirstOrDefault());
+        
+            determiner.Add(AggroType.Random, () =>
+                targetList.OrderBy(o => Random.Range(0.0f, 1.0f)).FirstOrDefault());
+            calculatedOnce.Add(AggroType.Random);
         }
 
         // Update is called once per frame
