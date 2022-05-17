@@ -8,11 +8,6 @@ public static class Statics
     private static WaveIndicatorView waveIndicator;
 
     public static GameMode gameMode = GameMode.SINGLEPLAYER;
-    
-    public enum GameMode {
-        SINGLEPLAYER,
-        LOCAL_MULTIPLAYER
-    }
 
     public static void Initialize()
     {

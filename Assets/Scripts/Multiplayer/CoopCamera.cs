@@ -10,7 +10,7 @@ namespace Multiplayer
 
         public void Start()
         {
-            if (Statics.gameMode == Statics.GameMode.SINGLEPLAYER)
+            if (Statics.gameMode == GameMode.SINGLEPLAYER)
             {
                 this.gameObject.transform.parent = mainPlayer.transform;
             }
@@ -18,7 +18,7 @@ namespace Multiplayer
 
         public void Update()
         {
-            if (Statics.gameMode != Statics.GameMode.LOCAL_MULTIPLAYER) return;
+            if (Statics.gameMode != GameMode.LOCAL_MULTIPLAYER) return;
             
             SetCameraToMiddle();
         }

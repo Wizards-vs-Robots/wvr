@@ -7,7 +7,7 @@ namespace Multiplayer
         // Start is called before the first frame update
         void Start()
         {
-            if (Statics.gameMode != Statics.GameMode.LOCAL_MULTIPLAYER) this.gameObject.SetActive(false);
+            if (Statics.gameMode != GameMode.LOCAL_MULTIPLAYER) this.gameObject.SetActive(false);
         }
     }
 }

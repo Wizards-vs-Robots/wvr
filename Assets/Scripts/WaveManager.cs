@@ -98,7 +98,7 @@ public class WaveManager : MonoBehaviour
 
     void Strengthen()
     {
-        float factor = Statics.gameMode == Statics.GameMode.LOCAL_MULTIPLAYER ? COOP_FACTOR : 1;
+        float factor = Statics.gameMode == GameMode.LOCAL_MULTIPLAYER ? COOP_FACTOR : 1;
         
         //Different parameters grow using different growth functions.
         int x = wave - 1;
@@ -146,7 +146,7 @@ public class WaveManager : MonoBehaviour
         // Give Players to Aggro finder of instance;
         var aggro = spawned.GetComponent<EnemyAggro>();
         aggro.AddPossibleTarget(player);
-        if(Statics.gameMode == Statics.GameMode.LOCAL_MULTIPLAYER) aggro.AddPossibleTarget(coopPlayer);
+        if(Statics.gameMode == GameMode.LOCAL_MULTIPLAYER) aggro.AddPossibleTarget(coopPlayer);
         
         minions.Add(spawned);
     }

@@ -8,13 +8,13 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     public void PlaySingleplayerGame()
     {
-        Statics.gameMode = Statics.GameMode.SINGLEPLAYER;
+        Statics.gameMode = GameMode.SINGLEPLAYER;
         SceneManager.LoadScene(sceneBuildIndex: 1);
     }
 
     public void PlayMultiplayerGame()
     {
-        Statics.gameMode = Statics.GameMode.LOCAL_MULTIPLAYER;
+        Statics.gameMode = GameMode.LOCAL_MULTIPLAYER;
         SceneManager.LoadScene(1);
     }
 
