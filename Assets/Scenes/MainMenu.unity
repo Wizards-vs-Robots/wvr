@@ -1420,8 +1420,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2078510932}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: PlayGame
+        m_TargetAssemblyTypeName: MainMenu, Scripts
+        m_MethodName: PlaySingleplayerGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
