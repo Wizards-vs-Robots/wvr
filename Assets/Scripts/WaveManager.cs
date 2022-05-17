@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
 using Robot;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class WaveManager : MonoBehaviour
@@ -13,13 +14,15 @@ public class WaveManager : MonoBehaviour
     private static readonly float BASE_COOLDOWN  = 1F;
     private static readonly float BASE_DURATION  = 5F;
     private static readonly float BASE_STRENGTH  = 100F;
+    private static readonly float COOP_FACTOR = 2F; 
     public static float MIN_SPAWN_RADIUS = 4F;
     public static float MAX_SPAWN_RADIUS = 7F;
     
     public GameObject[] attackerPrefabs;
     public GameObject[] dropPrefabs;
     public List<Attacker> attackers;
-    public GameObject player;
+    public GameObject mainPlayer;
+    public GameObject coopPlayer;
 
     //-- [Wave Management] -------------------------------
     public int wave;
@@ -88,7 +91,7 @@ public class WaveManager : MonoBehaviour
 
                 yield return new WaitForSeconds(duration);
                 // Debug.Log("Waited...");
-                Spawn(pair.Item2, player.transform.position);
+                Spawn(pair.Item2, mainPlayer.transform.position);
                 // Debug.Log("Spawned...");
             }
         }
@@ -96,11 +99,13 @@ public class WaveManager : MonoBehaviour
 
     void Strengthen()
     {
+        float factor = Statics.gameMode == GameMode.LOCAL_MULTIPLAYER ? COOP_FACTOR : 1;
+        
         //Different parameters grow using different growth functions.
         int x = wave - 1;
-        cooldown = (float) (BASE_COOLDOWN * Math.Exp(-0.005D * x));
-        duration = (float) (BASE_DURATION * Math.Exp(-0.02D * x));
-        strength = (float) (BASE_STRENGTH * Math.Exp(0.04D * x));
+        cooldown = (float) (1 / factor * BASE_COOLDOWN * Math.Exp(-0.005D * x));
+        duration = (float) (1 / factor * BASE_DURATION * Math.Exp(-0.02D * x));
+        strength = (float) (factor * BASE_STRENGTH * Math.Exp(0.04D * x));
     }
 
     public void ReportDeath(GameObject entity)
@@ -136,13 +141,15 @@ public class WaveManager : MonoBehaviour
         Vector3 surrounding = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle), 0);
         surrounding *= range;
         surrounding += center;
-
-        //Instantiate prefab, register attacker and let it target the player.
-        GameObject parent = attacker.transform.gameObject;
-        parent.GetComponent<AIDestinationSetter>().target = player.transform;
-        attacker.target = player.GetComponent<Damagable>();
-
-        GameObject spawned = Instantiate(parent, surrounding, Quaternion.identity);
+        
+        GameObject spawned = Instantiate(attacker.transform.gameObject, surrounding, Quaternion.identity);
+        
+        // Give Players to Aggro finder of instance;
+        EnemyAggro aggro = spawned.GetComponent<EnemyAggro>();
+        aggro.AddPossibleTarget(mainPlayer);
+        
+        if(Statics.gameMode == GameMode.LOCAL_MULTIPLAYER) aggro.AddPossibleTarget(coopPlayer);
+        
         minions.Add(spawned);
     }
 

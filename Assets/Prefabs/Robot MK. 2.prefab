@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1180571252981529690}
   - component: {fileID: -1598548558226776296}
   - component: {fileID: -5598565304195408088}
+  - component: {fileID: -4510227795335079620}
   m_Layer: 24
   m_Name: Robot MK. 2
   m_TagString: Attacker
@@ -185,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85244c9802ed2c841a09e16bd0eb13dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageCooldownAction: {fileID: 0}
 --- !u!114 &-1220472670019125072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +263,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-4510227795335079620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180571252981529709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea28c3a8b79505847b07bd45298acd5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aggroType: 0
 --- !u!1 &1180571253115073765
 GameObject:
   m_ObjectHideFlags: 0
