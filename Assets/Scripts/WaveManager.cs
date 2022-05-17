@@ -145,8 +145,9 @@ public class WaveManager : MonoBehaviour
         GameObject spawned = Instantiate(attacker.transform.gameObject, surrounding, Quaternion.identity);
         
         // Give Players to Aggro finder of instance;
-        var aggro = spawned.GetComponent<EnemyAggro>();
+        EnemyAggro aggro = spawned.GetComponent<EnemyAggro>();
         aggro.AddPossibleTarget(mainPlayer);
+        
         if(Statics.gameMode == GameMode.LOCAL_MULTIPLAYER) aggro.AddPossibleTarget(coopPlayer);
         
         minions.Add(spawned);
