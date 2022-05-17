@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
 using Robot;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class WaveManager : MonoBehaviour
@@ -20,7 +21,7 @@ public class WaveManager : MonoBehaviour
     public GameObject[] attackerPrefabs;
     public GameObject[] dropPrefabs;
     public List<Attacker> attackers;
-    public GameObject player;
+    public GameObject mainPlayer;
     public GameObject coopPlayer;
 
     //-- [Wave Management] -------------------------------
@@ -90,7 +91,7 @@ public class WaveManager : MonoBehaviour
 
                 yield return new WaitForSeconds(duration);
                 // Debug.Log("Waited...");
-                Spawn(pair.Item2, player.transform.position);
+                Spawn(pair.Item2, mainPlayer.transform.position);
                 // Debug.Log("Spawned...");
             }
         }
@@ -145,7 +146,7 @@ public class WaveManager : MonoBehaviour
         
         // Give Players to Aggro finder of instance;
         var aggro = spawned.GetComponent<EnemyAggro>();
-        aggro.AddPossibleTarget(player);
+        aggro.AddPossibleTarget(mainPlayer);
         if(Statics.gameMode == GameMode.LOCAL_MULTIPLAYER) aggro.AddPossibleTarget(coopPlayer);
         
         minions.Add(spawned);
