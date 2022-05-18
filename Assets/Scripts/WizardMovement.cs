@@ -23,12 +23,12 @@ public class WizardMovement : MonoBehaviour
     public string keyDown = "player1_move_down";
     public string keyRight = "player1_move_right";
     public string keyLeft = "player1_move_left";
-
     
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
         entity = GetComponent<Rigidbody2D>();
+        previousDirection = new Vector2(-1, 0);
     }
 
     void Update()
