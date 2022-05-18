@@ -142,14 +142,8 @@ public class WaveManager : MonoBehaviour
         surrounding *= range;
         surrounding += center;
         
-        GameObject spawned = Instantiate(attacker.transform.gameObject, surrounding, Quaternion.identity);
-        
-        // Give Players to Aggro finder of instance;
-        EnemyAggro aggro = spawned.GetComponent<EnemyAggro>();
-        aggro.AddPossibleTarget(mainPlayer);
-        
-        if(Statics.gameMode == GameMode.LOCAL_MULTIPLAYER) aggro.AddPossibleTarget(coopPlayer);
-        
+        GameObject spawned = RobotFactory.make(
+            attacker.transform.gameObject, surrounding, this);
         minions.Add(spawned);
     }
 
