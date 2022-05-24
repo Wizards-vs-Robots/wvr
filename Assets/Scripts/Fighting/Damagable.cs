@@ -37,30 +37,36 @@ public class Damagable : MonoBehaviour
             // Still waiting before damage protection wears off
             if (damageCooldownAction.active ||damageCooldownAction.waiting)
                 return false;
-            else
-                damageCooldownAction.Trigger();
+            
+            damageCooldownAction.Trigger();
         }
 
         _health.currentHealthPoints -= damage.amount;
         if (_health.currentHealthPoints <= 0) //Shit dies here, maybe it should die in healthModel?
         {
-            if (gameObject.CompareTag("Attacker"))
-            {
-                GameObject waveManagerObject = GameObject.FindGameObjectsWithTag("WaveManager")[0];
-                WaveManager waveManager = waveManagerObject.GetComponent<WaveManager>();
-                waveManager.ReportDeath(gameObject);
-            }
-            if (gameObject.CompareTag("Player"))
-            {
-                Highscores.SaveHighscore();
-                SceneManager.LoadScene(0); //If player dies, goto main menu
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            handleDestruction();    
             return true;
         }
         return false;
+    }
+
+    private void handleDestruction()
+    {
+        if (gameObject.CompareTag("Attacker"))
+        {
+            GameObject waveManagerObject = GameObject.FindGameObjectsWithTag("WaveManager")[0];
+            WaveManager waveManager = waveManagerObject.GetComponent<WaveManager>();
+            waveManager.ReportDeath(gameObject);
+            return;
+        }
+        if (gameObject.CompareTag("Player"))
+        {
+            Highscores.SaveHighscore();
+            SceneManager.LoadScene(0); //If player dies, goto main menu
+            return;
+        }
+        
+        Destroy(gameObject);
+        
     }
 }
