@@ -47,20 +47,25 @@ namespace Fighting
             if (castSpellAction.active || castSpellAction.waiting)
                 return;
 
-            // Change spell
+            ChangeSpell();
+            
+            // Retrieve shooting direction
+            var dir = GetShootingDirection();
+            
+            if (dir == Vector2.zero || manaModel.currentManaPoints < selectedSpell.manaCost) return;
+            
+            castSpellAction.Trigger();
+            selectedSpell.CastSpell(dir, transform.GetComponent<Renderer>().bounds.center);
+            manaModel.Use(selectedSpell.manaCost);
+        }
+
+        private void ChangeSpell()
+        {
             if (Input.GetKeyDown(KeyBindings.GetKeyBinding(keyChangeSpell)))
             {
                 int nextSpell = (spellIndex + 1) % learnedSpells.Count;
                 SetSpell(nextSpell);
             }
-            
-            // Retrieve shooting direction
-            var dir = GetShootingDirection();
-            if (dir == Vector2.zero) return;
-            if (manaModel.currentManaPoints < selectedSpell.manaCost) return;
-            castSpellAction.Trigger();
-            selectedSpell.CastSpell(dir, transform.GetComponent<Renderer>().bounds.center);
-            manaModel.Use(selectedSpell.manaCost);
         }
 
         private Vector2 GetShootingDirection()

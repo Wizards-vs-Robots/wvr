@@ -70,8 +70,7 @@ public class WaveManager : MonoBehaviour
             // preliminary operations before jumping into the wave
             // management loop. In other words, the 0th wave immediatly
             // finishes and the wave with index 1 is the actual first wave.
-            if (wave > 0)
-                Statics.GetWaveIndicator().UpdateView(wave); 
+            ShowWaveOnScreen();
 
             // Update wave stats
             wave++;
@@ -94,6 +93,14 @@ public class WaveManager : MonoBehaviour
                 Spawn(pair.Item2, mainPlayer.transform.position);
                 // Debug.Log("Spawned...");
             }
+        }
+    }
+
+    private void ShowWaveOnScreen()
+    {
+        if (wave > 0)
+        {
+            Statics.GetWaveIndicator().UpdateView(wave); 
         }
     }
 
