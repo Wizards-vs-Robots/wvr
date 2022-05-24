@@ -160,13 +160,18 @@ public class WaveManager : MonoBehaviour
     {
         List<Attacker> options = new List<Attacker>();
         foreach (Attacker attacker in attackers) {
-            if ((wave >= attacker.minWave || attacker.minWave < 0) &&
-                (wave <= attacker.maxWave || attacker.maxWave < 0)) {
-                options.Add(attacker);
-            }
+            AddToOptions(attacker, options);
         }
 
         return options;
+    }
+
+    private void AddToOptions(Attacker attacker, List<Attacker> options)
+    {
+        if ((wave >= attacker.minWave || attacker.minWave < 0) &&
+            (wave <= attacker.maxWave || attacker.maxWave < 0)) {
+            options.Add(attacker);
+        }
     }
 
     //This function generates descrete points in time in an intervall
