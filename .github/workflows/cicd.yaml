@@ -6,48 +6,6 @@ on:
   pull_request:
     branches: ['main', 'dev']
 
-# jobs:
-#   build:
-#     name: Test and Build Project 
-#     runs-on: ubuntu-latest
-#     steps:
-#       # Checkout
-#       - name: Checkout repository
-#         uses: actions/checkout@v2
-#         with:
-#           lfs: true
-
-#       # Cache
-#       - uses: actions/cache@v2
-#         with:
-#           path: Library
-#           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-#           restore-keys: |
-#             Library-
-
-#       # Test
-#       - name: Run tests
-#         uses: game-ci/unity-test-runner@v2
-#         env:
-#           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-#         with:
-#           githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-#       # Build
-#       - name: Build project
-#         uses: game-ci/unity-builder@v2
-#         env:
-#           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-#           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-#           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-#         with:
-#           targetPlatform: StandaloneWindows64 # WebGL
-
-#       # Output
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: Build
-#           path: build
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -107,90 +65,25 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: artifacts/coverage-results/**/*.xml
 
-  # buildWebGL:
-  #   needs: release
-  #   name: Build for WebGL 
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     fail-fast: false
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
-
-  #     - name: Create LFS file list
-  #       run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-  #     - name: Restore LFS cache
-  #       uses: actions/cache@v2
-  #       id: lfs-cache
-  #       with:
-  #         path: .git/lfs
-  #         key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-
-  #     - name: Git LFS Pull
-  #       run: |
-  #         git lfs pull
-  #         git add .
-  #         git reset --hard
-  #     - name: Restore Library cache
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: Library
-  #         key: Library-build-WebGL
-  #         restore-keys: |
-  #           Library-build-
-  #           Library-
-  #     - uses: game-ci/unity-builder@v2
-  #       with:
-  #         targetPlatform: WebGL
-
-  #     - uses: actions/upload-artifact@v2
-  #       with:
-  #         name: build-WebGL
-  #         path: build/WebGL
 
   release:
     needs: testRunner
-    name: Release
+    name: Build & Release
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Create semver tag and changelog
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v5.6
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: main
+      #BUILD
 
-      # Create GitHub release once images have been pushed
-      - name: Create a GitHub release ${{ steps.tag_version.outputs.new_tag }}
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
-
-  buildWindows:
-    needs: release
-    name: Build for Windows
-    if: ${{ github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+      # Windows
+      # caching stuff
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
         uses: actions/cache@v2
-        id: lfs-cache
         with:
           path: .git/lfs
           key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
@@ -208,39 +101,23 @@ jobs:
           restore-keys: |
             Library-build-
             Library-
+      # build
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneWindows64
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
+      # zip builds
+      - uses: montudor/action-zip@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/StandaloneWindows64
-          asset_name: build-StandaloneWindows64
-          tag: ${{ github.ref }}
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: build-StandaloneWindows64
-      #     path: build/StandaloneWindows64
+          args: zip -qq -r build/build-StandaloneWindows64.zip build/StandaloneWindows64
 
-  buildLinux:
-    needs: release
-    name: Build for Linux
-    if: ${{ github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+      # Linux
+      # caching stuff
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
       - name: Restore LFS cache
         uses: actions/cache@v2
-        id: lfs-cache
         with:
           path: .git/lfs
           key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
@@ -258,23 +135,33 @@ jobs:
           restore-keys: |
             Library-build-
             Library-
+      # build
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneLinux64
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
+      # zip builds
+      - uses: montudor/action-zip@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/StandaloneLinux64
-          asset_name: build-StandaloneLinux64
-          tag: ${{ github.ref }}
+          args: zip -qq -r build/build-StandaloneLinux64.zip build/StandaloneLinux64
 
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: build-StandaloneLinux64
-      #     path: build/StandaloneLinux64
+      # RELEASE
+      # Create semver tag and changelog
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches: main
 
+      # Create GitHub release once images have been pushed
+      - name: Create a GitHub release ${{ steps.tag_version.outputs.new_tag }}
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+          artifacts: "build/build-StandaloneWindows64.zip,build/build-StandaloneLinux64.zip"
 
 #   deployPages:
 #     needs: buildWebGL
