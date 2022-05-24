@@ -7,6 +7,8 @@ public static class Statics
     private static ScoreModel scoreModel;
     private static WaveIndicatorView waveIndicator;
 
+    public static GameMode gameMode = GameMode.SINGLEPLAYER;
+
     public static void Initialize()
     {
         scoreModel = GameObject.FindGameObjectsWithTag("Score")[0]
