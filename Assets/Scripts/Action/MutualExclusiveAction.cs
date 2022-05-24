@@ -8,9 +8,9 @@ public abstract class MutualExclusiveAction : CooldownAction
 
     public bool IsUnlocked()
     {
-        return minScore < Statics.GetScoreModel().GetScore();
+        return Statics.GetScoreModel().GetScore() >= minScore;
     }
-
+    
     public override void Start()
     {
         base.Start();

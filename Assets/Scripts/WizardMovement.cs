@@ -19,10 +19,16 @@ public class WizardMovement : MonoBehaviour
     //----------------------------------------
     public bool updated;
 
+    public string keyUp = "player1_move_up";
+    public string keyDown = "player1_move_down";
+    public string keyRight = "player1_move_right";
+    public string keyLeft = "player1_move_left";
+    
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
         entity = GetComponent<Rigidbody2D>();
+        previousDirection = new Vector2(-1, 0);
     }
 
     void Update()
@@ -56,7 +62,7 @@ public class WizardMovement : MonoBehaviour
         Vector2 currentDirection = new Vector2(0, 0);
         
         // Movement along X-Axis
-        if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_left")))
+        if (Input.GetKey(KeyBindings.GetKeyBinding(keyLeft)))
         {
             currentDirection.x = -1;
             updated = true;
@@ -64,7 +70,7 @@ public class WizardMovement : MonoBehaviour
             renderer.flipX = false;
             renderer.sprite = wizardStandard;
         }
-        else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_right")))
+        else if (Input.GetKey(KeyBindings.GetKeyBinding(keyRight)))
         {
             currentDirection.x = 1;
             updated = true;
@@ -74,14 +80,14 @@ public class WizardMovement : MonoBehaviour
         }
 
         // Movement along Y-Axis
-        if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_up")))
+        if (Input.GetKey(KeyBindings.GetKeyBinding(keyUp)))
         {
             currentDirection.y = 1;
             updated = true;
 
             renderer.sprite = wizardWithAss;
         }
-        else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_move_down")))
+        else if (Input.GetKey(KeyBindings.GetKeyBinding(keyDown)))
         {
             currentDirection.y = -1;
             updated = true;

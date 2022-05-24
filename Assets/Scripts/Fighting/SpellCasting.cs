@@ -13,6 +13,12 @@ namespace Fighting
         public int spellIndex;
         private Spell selectedSpell;
         private GameObject selectedSpellPrefab;
+        
+        public string keyUp = "player1_shoot_up";
+        public string keyDown = "player1_shoot_down";
+        public string keyRight = "player1_shoot_right";
+        public string keyLeft = "player1_shoot_left";
+        public string keyChangeSpell = "player1_change_spell";
 
         void Start()
         {
@@ -42,7 +48,7 @@ namespace Fighting
                 return;
 
             // Change spell
-            if (Input.GetKeyDown(KeyBindings.GetKeyBinding("player1_change_spell")))
+            if (Input.GetKeyDown(KeyBindings.GetKeyBinding(keyChangeSpell)))
             {
                 int nextSpell = (spellIndex + 1) % learnedSpells.Count;
                 SetSpell(nextSpell);
@@ -57,20 +63,20 @@ namespace Fighting
             manaModel.Use(selectedSpell.manaCost);
         }
 
-        private static Vector2 GetShootingDirection()
+        private Vector2 GetShootingDirection()
         {
             var dir = UnityEngine.Vector2.zero;
             
             // Left and right shooting
-            if (Input.GetKey(KeyBindings.GetKeyBinding("player1_shoot_left")))
+            if (Input.GetKey(KeyBindings.GetKeyBinding(keyLeft)))
                 dir.x = -1;
-            else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_shoot_right")))
+            else if (Input.GetKey(KeyBindings.GetKeyBinding(keyRight)))
                 dir.x = 1;
 
             // Up and down shooting
-            if (Input.GetKey(KeyBindings.GetKeyBinding("player1_shoot_up")))
+            if (Input.GetKey(KeyBindings.GetKeyBinding(keyUp)))
                 dir.y = 1;
-            else if (Input.GetKey(KeyBindings.GetKeyBinding("player1_shoot_down")))
+            else if (Input.GetKey(KeyBindings.GetKeyBinding(keyDown)))
                 dir.y = -1;
 
             dir.Normalize();
