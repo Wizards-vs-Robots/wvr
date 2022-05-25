@@ -42,7 +42,7 @@ TagManager:
   - Enemy Projectile
   - ConeSpell
   - PlayerModel
-  - 
+  - Building
   - 
   m_SortingLayers:
   - name: Default
