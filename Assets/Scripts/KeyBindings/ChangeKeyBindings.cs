@@ -14,22 +14,26 @@ public class ChangeKeyBindings : MonoBehaviour
 
     private void Start()
     {
-        inputField.characterLimit = KeyBindings.GetKeyBinding(key).ToString().Length;
+        inputField.characterLimit = 20;
         inputField.SetTextWithoutNotify(KeyBindings.GetKeyBinding(key).ToString());
     }
 
     public void changeKeyCode()
     {
         KeyCode newcode = KeyListener.getLastPressed();
+        if (newcode == KeyCode.Mouse0)
+        {
+            inputField.SetTextWithoutNotify("");
+            return;
+        }
         if (KeyBindings.SetKeyBinding(key, newcode))
         {
-            inputField.characterLimit = newcode.ToString().Length;
             inputField.SetTextWithoutNotify(newcode.ToString());
             StoreKeyBindings.SaveKeyBindings();
+            inputField.DeactivateInputField();
         }
         else
         {
-            inputField.characterLimit = "Not Allowed".Length;
             inputField.SetTextWithoutNotify("Not Allowed");
         }
     }
