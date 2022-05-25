@@ -584,9 +584,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 126458469}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -597,9 +600,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 132363231}
   - component: {fileID: 132363230}
   m_Layer: 5
-  m_Name: KeyName10
+  m_Name: KeyName11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -870,9 +870,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 136796667}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -883,9 +886,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -1119,9 +1119,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 209925269}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -1132,9 +1135,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -1326,9 +1326,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 246630719}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -1339,9 +1342,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -1585,7 +1585,19 @@ MonoBehaviour:
         m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 320169992}
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
+        m_MethodName: changeKeyCode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -2719,7 +2731,7 @@ GameObject:
   - component: {fileID: 749286563}
   - component: {fileID: 749286562}
   m_Layer: 5
-  m_Name: InputField1
+  m_Name: Input1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2813,9 +2825,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 749286562}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -2826,9 +2841,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -3490,9 +3502,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 931871480}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -3503,9 +3518,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -3697,9 +3709,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1010655434}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -3710,9 +3725,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -4099,9 +4111,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1178616169}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -4112,9 +4127,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -4348,9 +4360,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1232959651}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -4361,9 +4376,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -4597,9 +4609,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1248677235}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -4610,9 +4625,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -4750,7 +4762,7 @@ GameObject:
   - component: {fileID: 1252130012}
   - component: {fileID: 1252130011}
   m_Layer: 5
-  m_Name: KeyName2
+  m_Name: Input2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4925,9 +4937,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1279518450}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -4938,9 +4953,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -5332,9 +5344,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1325368930}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -5345,9 +5360,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -5408,7 +5420,7 @@ GameObject:
   - component: {fileID: 1358497364}
   - component: {fileID: 1358497363}
   m_Layer: 5
-  m_Name: InputField10
+  m_Name: InputField11.2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5502,9 +5514,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1358497363}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -5515,9 +5530,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -5615,7 +5627,7 @@ GameObject:
   - component: {fileID: 1428652929}
   - component: {fileID: 1428652928}
   m_Layer: 5
-  m_Name: InputField10
+  m_Name: InputField11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5709,9 +5721,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1428652928}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -5722,9 +5737,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -5932,7 +5944,7 @@ GameObject:
   - component: {fileID: 1467002386}
   - component: {fileID: 1467002385}
   m_Layer: 5
-  m_Name: Binding10
+  m_Name: Binding11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6107,9 +6119,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1479578295}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -6120,9 +6135,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -6277,9 +6289,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1490482166}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -6290,9 +6305,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -6743,7 +6755,7 @@ GameObject:
   - component: {fileID: 1677493144}
   - component: {fileID: 1677493143}
   m_Layer: 5
-  m_Name: InputField2
+  m_Name: Input2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6837,9 +6849,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1677493143}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -6850,9 +6865,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -7086,9 +7098,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1738772498}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -7099,9 +7114,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -7630,9 +7642,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1878423919}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -7643,9 +7658,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -8567,9 +8579,12 @@ MonoBehaviour:
   m_CharacterLimit: 1
   m_OnEndEdit:
     m_PersistentCalls:
+      m_Calls: []
+  m_OnValueChanged:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2125770526}
-        m_TargetAssemblyTypeName: ChangeKeyBindings, Assembly-CSharp
+        m_TargetAssemblyTypeName: ChangeKeyBindings, Scripts
         m_MethodName: changeKeyCode
         m_Mode: 1
         m_Arguments:
@@ -8580,9 +8595,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
