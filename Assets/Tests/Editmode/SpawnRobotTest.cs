@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Robot;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -11,6 +12,8 @@ public class SpawnRobotTest
     [Test]
     public void TestSpawnRobot()
     {
+        EditorSceneManager.OpenScene("Assets/Scenes/Game.unity");
+
         var manager = GameObject
                         .FindGameObjectsWithTag("WaveManager")[0]
                         .GetComponent<WaveManager>();

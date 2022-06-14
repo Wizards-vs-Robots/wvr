@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Robot;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -11,6 +12,8 @@ public class ReportDeathTest
     [Test]
     public void TestDeathAlreadyReported()
     {
+        EditorSceneManager.OpenScene("Assets/Scenes/Game.unity");
+
         Statics.Initialize();
         var manager = GameObject
                         .FindGameObjectsWithTag("WaveManager")[0]
