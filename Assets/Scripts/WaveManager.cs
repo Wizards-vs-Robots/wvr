@@ -70,8 +70,7 @@ public class WaveManager : MonoBehaviour
             // preliminary operations before jumping into the wave
             // management loop. In other words, the 0th wave immediatly
             // finishes and the wave with index 1 is the actual first wave.
-            if (wave > 0)
-                Statics.GetWaveIndicator().UpdateView(wave); 
+            ShowWaveOnScreen();
 
             // Update wave stats
             wave++;
@@ -94,6 +93,14 @@ public class WaveManager : MonoBehaviour
                 Spawn(pair.Item2, mainPlayer.transform.position);
                 // Debug.Log("Spawned...");
             }
+        }
+    }
+
+    private void ShowWaveOnScreen()
+    {
+        if (wave > 0)
+        {
+            Statics.GetWaveIndicator().UpdateView(wave); 
         }
     }
 
@@ -160,13 +167,18 @@ public class WaveManager : MonoBehaviour
     {
         List<Attacker> options = new List<Attacker>();
         foreach (Attacker attacker in attackers) {
-            if ((wave >= attacker.minWave || attacker.minWave < 0) &&
-                (wave <= attacker.maxWave || attacker.maxWave < 0)) {
-                options.Add(attacker);
-            }
+            AddToOptions(attacker, options);
         }
 
         return options;
+    }
+
+    private void AddToOptions(Attacker attacker, List<Attacker> options)
+    {
+        if ((wave >= attacker.minWave || attacker.minWave < 0) &&
+            (wave <= attacker.maxWave || attacker.maxWave < 0)) {
+            options.Add(attacker);
+        }
     }
 
     //This function generates descrete points in time in an intervall

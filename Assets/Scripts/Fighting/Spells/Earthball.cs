@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Fighting.Spells
 {
@@ -7,6 +8,18 @@ namespace Fighting.Spells
         public float spellSpeed;
         public Damage damage;
         private bool _dealtDmg = false;
+        
+        private void Start()
+        {
+            InvokeRepeating("SpinRock",0.1f,0.05f);
+        }
+        
+        //Performance probably terrible but idk how to animate and it seems to complicated :)
+        void SpinRock()
+        {
+            transform.Rotate((Vector3.forward),45f);
+        }
+        
 
         private void OnCollisionEnter2D(Collision2D other)
         {

@@ -57,7 +57,7 @@ public class WizardMovement : MonoBehaviour
         entity.velocity = velocity;
     }
 
-    IEnumerator Move()
+    private Vector2 DetermineDirection()
     {
         Vector2 currentDirection = new Vector2(0, 0);
         
@@ -94,7 +94,14 @@ public class WizardMovement : MonoBehaviour
 
             renderer.sprite = wizardWithSmile;
         }
-        
+
+        return currentDirection;
+    }
+
+    IEnumerator Move()
+    {
+        Vector2 currentDirection = DetermineDirection();
+
         // The wizard has been allowed to change looking direction
         // but must not move itself
         if (stunned)
