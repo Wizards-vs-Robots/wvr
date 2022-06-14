@@ -184,7 +184,7 @@ public class WaveManager : MonoBehaviour
     //This function generates descrete points in time in an intervall
     //I = [0; #duration] using sub-second timesteps. They are sorted in
     //ascending order.
-    List<Tuple<float, Attacker>> GenerateSpawnPattern()
+    public List<Tuple<float, Attacker>> GenerateSpawnPattern()
     {
         List<Attacker> options = GetValidSpawningOptions();
         int pivot = options.Count - 1;

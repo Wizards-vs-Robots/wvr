@@ -1,29 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
+using Robot;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 
 public class WaveManagerTest
 {
-    
     [Test]
     public void TestMinionConstellation()
     {
-        Assert.IsTrue(true);
-        /*GameObject gameObject= new GameObject();
-        var wavemanager = gameObject.AddComponent<WaveManager>();
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        MethodInfo methodInfo = typeof(WaveManager).GetMethod("Strengthen()");
-        float strengthBefore = wavemanager.strength;
-        methodInfo.Invoke(wavemanager, null);
-        yield return new WaitForSeconds(1);
-        Assert.GreaterOrEqual(strengthBefore,wavemanager.strength);
-        */
+        var manager = GameObject
+                        .FindGameObjectsWithTag("WaveManager")[0]
+                        .GetComponent<WaveManager>();
+        manager.Start();
+
+        List<Tuple<float, Attacker>> pattern = manager.GenerateSpawnPattern();
+        int firstRobotCount = 0;
+        foreach (Tuple<float, Attacker> entry in pattern) {
+            Assert.IsTrue(entry.Item2.strength == 10);
+            firstRobotCount++;
+        }
+
+        Assert.IsTrue(firstRobotCount == 10);
     }
 
     [Test]
@@ -36,7 +39,9 @@ public class WaveManagerTest
         var manager = GameObject
                         .FindGameObjectsWithTag("WaveManager")[0]
                         .GetComponent<WaveManager>();
-        manager.Start();
+        manager.cooldown = 1F;
+        manager.duration = 5F;
+        manager.strength = 100F;
 
         for (int i = 0; i < 3; i++) {
             Assert.IsTrue(Mathf.Abs(manager.cooldown - cooldowns[i]) < eta);
