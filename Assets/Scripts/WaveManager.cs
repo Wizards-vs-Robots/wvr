@@ -123,7 +123,7 @@ public class WaveManager : MonoBehaviour
 
             // Remove the entity and drop reward
             GenerateDrop(entity.transform.position);
-            DestroyImmediate(entity);
+            Destroy(entity);
             minions.Remove(entity);
         }
     }
@@ -191,7 +191,6 @@ public class WaveManager : MonoBehaviour
         float quota = strength;
         //Debug.Log("Quota: " + quota);
 
-        Debug.Log("a");
         List<Tuple<float, Attacker>> output = new List<Tuple<float, Attacker>>();
         while (quota > 0) {
             Debug.Log("Quota: " + quota);
