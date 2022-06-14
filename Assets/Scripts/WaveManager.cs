@@ -31,7 +31,7 @@ public class WaveManager : MonoBehaviour
     public float strength;
     private List<GameObject> minions;
 
-    void Start()
+    public void Start()
     {
         //Getting "Attacker" component of game objects beforehand
         //to elimite "runtime" overhead during the game and sort
@@ -104,7 +104,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    void Strengthen()
+    public void Strengthen()
     {
         float factor = Statics.gameMode == GameMode.LOCAL_MULTIPLAYER ? COOP_FACTOR : 1;
         
