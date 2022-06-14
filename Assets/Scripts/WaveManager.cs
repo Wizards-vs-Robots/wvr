@@ -29,7 +29,7 @@ public class WaveManager : MonoBehaviour
     public float cooldown;
     public float duration;
     public float strength;
-    private List<GameObject> minions;
+    public List<GameObject> minions;
 
     public void Start()
     {
@@ -56,7 +56,6 @@ public class WaveManager : MonoBehaviour
             //before proceeding to the next wave until they are all dead.
             if (minions.Count > 0)
             {
-                // Debug.Log("There are still minions.");
                 yield return new WaitUntil(() => (minions.Count == 0));
             }
             
@@ -124,7 +123,7 @@ public class WaveManager : MonoBehaviour
 
             // Remove the entity and drop reward
             GenerateDrop(entity.transform.position);
-            Destroy(entity);
+            DestroyImmediate(entity);
             minions.Remove(entity);
         }
     }
@@ -139,7 +138,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    void Spawn(Attacker attacker, Vector3 center)
+    public void Spawn(Attacker attacker, Vector3 center)
     {
         //Generate normalized vector from random angle and stretch it to match specified range.
         float angle = UnityEngine.Random.Range(0F, (float)(Math.PI * 2));
@@ -192,8 +191,10 @@ public class WaveManager : MonoBehaviour
         float quota = strength;
         //Debug.Log("Quota: " + quota);
 
+        Debug.Log("a");
         List<Tuple<float, Attacker>> output = new List<Tuple<float, Attacker>>();
         while (quota > 0) {
+            Debug.Log("Quota: " + quota);
             Attacker selected = options[pivot];
             float baseStrength = selected.GetStrength();
             float scaledStrength = baseStrength * selected.GetStrengthScale();

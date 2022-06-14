@@ -9,26 +9,8 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 
-public class WaveManagerTest
+public class ParameterGrowthTest
 {
-    [Test]
-    public void TestMinionConstellation()
-    {
-        var manager = GameObject
-                        .FindGameObjectsWithTag("WaveManager")[0]
-                        .GetComponent<WaveManager>();
-        manager.Start();
-
-        List<Tuple<float, Attacker>> pattern = manager.GenerateSpawnPattern();
-        int firstRobotCount = 0;
-        foreach (Tuple<float, Attacker> entry in pattern) {
-            Assert.IsTrue(entry.Item2.strength == 10);
-            firstRobotCount++;
-        }
-
-        Assert.IsTrue(firstRobotCount == 10);
-    }
-
     [Test]
     public void TestParameterGrowth()
     {
@@ -42,6 +24,7 @@ public class WaveManagerTest
         manager.cooldown = 1F;
         manager.duration = 5F;
         manager.strength = 100F;
+        manager.wave = 1;
 
         for (int i = 0; i < 3; i++) {
             Assert.IsTrue(Mathf.Abs(manager.cooldown - cooldowns[i]) < eta);
