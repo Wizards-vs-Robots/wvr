@@ -9,13 +9,8 @@ using Newtonsoft.Json;
 public static class StoreKeyBindings
 {
     private const string custom_path = "keybindings_custom.json";
-    private const string default_path = "keybindings_default.json";
+    private const string default_resource = "keybindings_default";
 
-    static StoreKeyBindings()
-    {
-      
-    }
-        
     public static void SaveKeyBindings()
     {
         Dictionary<String, KeyCode> bindings = KeyBindings.Get();
@@ -36,16 +31,11 @@ public static class StoreKeyBindings
         return true;
     }
 
-    public static bool RestoreDefaults()
+    public static void RestoreDefaults()
     {
-        if (!File.Exists(default_path))
-        {
-            return false;
-        }
-        var content = File.ReadAllText(default_path);
+        var content = Resources.Load<TextAsset>(default_resource).text;
         Dictionary<String, KeyCode> bindings =  JsonConvert.DeserializeObject<Dictionary<string, KeyCode>>(content);
         KeyBindings.Set(bindings);
-        return true;
     }
     
 }
