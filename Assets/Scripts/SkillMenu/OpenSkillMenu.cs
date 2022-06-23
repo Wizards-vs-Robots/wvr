@@ -7,7 +7,9 @@ public class OpenSkillMenu : MonoBehaviour
 {
     public SkillTree sT;
     private void OnTriggerEnter2D(Collider2D col)
-    {
-        sT.ResumeGame();
+    {   
+        if(col.gameObject.layer == 26){
+            sT.ResumeGame();
+        }
     }
 }

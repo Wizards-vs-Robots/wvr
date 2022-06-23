@@ -10,6 +10,8 @@ public class PauseGame : MonoBehaviour
 {
     private bool active = false; //is the MENU active?
     public GameObject background;
+
+    private int toggleID = -1;
     // Update is called once per frame
     
     private void Start()
@@ -22,7 +24,9 @@ public class PauseGame : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyBindings.GetKeyBinding("pause_button")))
         {
-            ResumeGame();
+            togglePause(0);
+            active = !active;
+            background.SetActive(active);
         }
     }
     public void ReturnToMainMenu()
@@ -31,11 +35,28 @@ public class PauseGame : MonoBehaviour
         SceneManager.LoadScene(sceneBuildIndex: 0);
     }
 
-    public void ResumeGame()
+    public void togglePauseWrap()
     {
+        togglePause(0);
         active = !active;
-        Time.timeScale = 1F - Time.timeScale;
         background.SetActive(active);
+    }
+    public bool togglePause(int ID)
+    {
+        if(toggleID == -1){
+            Time.timeScale = 1F - Time.timeScale;
+            toggleID = ID;
+            return true;
+        }
+
+        if (toggleID == ID)
+        {
+            Time.timeScale = 1F - Time.timeScale;
+            toggleID = -1;
+            return true;
+        }
+
+        return false;
     }
 
 }

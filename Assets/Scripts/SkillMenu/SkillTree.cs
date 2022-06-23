@@ -21,7 +21,7 @@ public class SkillTree : MonoBehaviour
 
     public GameObject stonePrefab;
     public GameObject lightningPrefab;
-
+    public PauseGame pauseGame;
     
     private void Start()
     {
@@ -32,9 +32,11 @@ public class SkillTree : MonoBehaviour
 
     public void ResumeGame()
     {
-        active = !active;
-        Time.timeScale = 1F - Time.timeScale;
-        background.SetActive(active);
+        if (pauseGame.togglePause(1))
+        {
+            active = !active;
+            background.SetActive(active);
+        }
     }
     
     public void ButtonOne(GameObject o)
