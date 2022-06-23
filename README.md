@@ -6,3 +6,5 @@
 [![Generic badge](https://img.shields.io/badge/os-Windows,Linux-blue.svg)](https://shields.io/)
 
 # Wizards vs. Robots
+
+[Video demo](https://youtu.be/7E_7Vb-jXSk).
